@@ -1,0 +1,1014 @@
+/* ==========================================================
+   RESEARCHAI
+   RESEARCH PROGRESS PAGE
+   LIGHT + DARK MODE
+========================================================== */
+
+
+/* ==========================================================
+   LIGHT MODE
+========================================================== */
+
+.progress-page-body {
+
+    background:
+        #f7f7f4;
+
+    color:
+        #202220;
+}
+
+
+.progress-page-body .site-header {
+
+    border-bottom:
+        1px solid #deded9;
+}
+
+
+.progress-page-body .brand {
+
+    color:
+        #202220;
+}
+
+
+.progress-page-body .theme-toggle {
+
+    background:
+        #ffffff;
+
+    color:
+        #202220;
+
+    border-color:
+        #d8d8d2;
+}
+
+
+/* ==========================================================
+   MAIN
+========================================================== */
+
+.research-progress {
+
+    width:
+        min(1120px, calc(100% - 40px));
+
+    margin:
+        0 auto;
+
+    padding:
+        58px 0 40px;
+}
+
+
+/* ==========================================================
+   STATUS
+========================================================== */
+
+.research-status {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        #777872;
+
+    font-size:
+        0.8rem;
+}
+
+
+.status-indicator {
+
+    width:
+        7px;
+
+    height:
+        7px;
+
+    border-radius:
+        50%;
+
+    background:
+        #a78f55;
+
+    box-shadow:
+        0 0 0 5px rgba(167, 143, 85, 0.08);
+}
+
+
+/* ==========================================================
+   INTRO
+========================================================== */
+
+.progress-introduction {
+
+    margin:
+        14px auto 50px;
+
+    text-align:
+        center;
+}
+
+
+.progress-introduction h1 {
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(2rem, 4vw, 3rem);
+
+    letter-spacing:
+        -0.04em;
+
+    color:
+        #202220;
+}
+
+
+.progress-introduction p {
+
+    margin-top:
+        10px;
+
+    color:
+        #777872;
+
+    font-size:
+        0.85rem;
+}
+
+
+/* ==========================================================
+   PIPELINE
+========================================================== */
+
+.research-pipeline {
+
+    position:
+        relative;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    margin-bottom:
+        42px;
+}
+
+
+.research-pipeline::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        10%;
+
+    right:
+        10%;
+
+    top:
+        18px;
+
+    height:
+        1px;
+
+    background:
+        #d1d1cb;
+
+    z-index:
+        0;
+}
+
+
+.pipeline-step {
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
+    text-align:
+        center;
+}
+
+
+.step-indicator {
+
+    width:
+        36px;
+
+    height:
+        36px;
+
+    margin:
+        0 auto 10px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        1px solid #c7c7c0;
+
+    border-radius:
+        50%;
+
+    background:
+        #f7f7f4;
+
+    color:
+        #7d7f79;
+
+    font-size:
+        0.78rem;
+}
+
+
+.pipeline-step.completed .step-indicator {
+
+    border-color:
+        #c5c0b2;
+
+    background:
+        #c5c0b2;
+
+    color:
+        #202220;
+}
+
+
+.pipeline-step.active .step-indicator {
+
+    border-color:
+        #c5c0b2;
+
+    background:
+        #e5e3dc;
+
+    color:
+        #202220;
+}
+
+
+.pipeline-step h2 {
+
+    font-size:
+        0.82rem;
+
+    color:
+        #292b29;
+}
+
+
+.pipeline-step p {
+
+    max-width:
+        145px;
+
+    margin:
+        5px auto 0;
+
+    color:
+        #858680;
+
+    font-size:
+        0.68rem;
+}
+
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+.progress-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.45fr 0.8fr;
+
+    gap:
+        14px;
+}
+
+
+/* ==========================================================
+   CARDS
+========================================================== */
+
+.activity-card,
+.sources-card {
+
+    min-height:
+        310px;
+
+    padding:
+        20px;
+
+    border:
+        1px solid #deded9;
+
+    border-radius:
+        14px;
+
+    background:
+        #ffffff;
+}
+
+
+.card-header {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        18px;
+}
+
+
+.card-title {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+}
+
+
+.card-title h2 {
+
+    font-size:
+        0.8rem;
+
+    color:
+        #292b29;
+}
+
+
+.card-icon {
+
+    color:
+        #777870;
+}
+
+
+.source-count {
+
+    color:
+        #777872;
+
+    font-size:
+        0.72rem;
+}
+
+
+/* ==========================================================
+   ACTIVITY
+========================================================== */
+
+.activity-timeline {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+}
+
+
+.activity-item {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        65px 15px 1fr;
+
+    align-items:
+        center;
+
+    min-height:
+        42px;
+
+    color:
+        #858680;
+
+    font-size:
+        0.74rem;
+}
+
+
+.activity-item time {
+
+    color:
+        #888a84;
+
+    font-size:
+        0.68rem;
+}
+
+
+.activity-item p {
+
+    padding-left:
+        8px;
+}
+
+
+.activity-dot {
+
+    width:
+        8px;
+
+    height:
+        8px;
+
+    border-radius:
+        50%;
+
+    background:
+        #b8b8b1;
+}
+
+
+.activity-item.completed .activity-dot,
+.activity-item.active .activity-dot {
+
+    background:
+        #8e8879;
+}
+
+
+.activity-item.completed p,
+.activity-item.active p {
+
+    color:
+        #343633;
+}
+
+
+/* ==========================================================
+   SOURCES
+========================================================== */
+
+.source-list {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+}
+
+
+.source-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    padding:
+        10px 0;
+
+    border-bottom:
+        1px solid #e4e4df;
+}
+
+
+.source-item:last-child {
+
+    border-bottom:
+        0;
+}
+
+
+.source-logo {
+
+    width:
+        28px;
+
+    height:
+        28px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        1px solid #d2d2cc;
+
+    border-radius:
+        50%;
+
+    color:
+        #676963;
+
+    font-size:
+        0.72rem;
+}
+
+
+.source-information h3 {
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        500;
+
+    color:
+        #30322f;
+}
+
+
+.source-information p {
+
+    color:
+        #888a84;
+
+    font-size:
+        0.64rem;
+}
+
+
+/* ==========================================================
+   QUOTE
+========================================================== */
+
+.research-quote {
+
+    margin-top:
+        14px;
+
+    min-height:
+        50px;
+
+    padding:
+        13px 17px;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+    border:
+        1px solid #deded9;
+
+    border-radius:
+        12px;
+
+    background:
+        #ffffff;
+
+    color:
+        #777872;
+
+    font-size:
+        0.72rem;
+}
+
+
+.analysis-status {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    white-space:
+        nowrap;
+
+    color:
+        #4e504c;
+}
+
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+/*
+    app.js sets:
+
+        <html data-theme="dark">
+
+    These rules activate only when dark mode
+    is selected.
+*/
+
+[data-theme="dark"] .progress-page-body {
+
+    background:
+        #101212;
+
+    color:
+        #f3f2ed;
+}
+
+
+[data-theme="dark"] .progress-page-body .site-header {
+
+    border-bottom:
+        1px solid #292c2c;
+}
+
+
+[data-theme="dark"] .progress-page-body .brand {
+
+    color:
+        #f3f2ed;
+}
+
+
+[data-theme="dark"] .progress-page-body .theme-toggle {
+
+    background:
+        #191d1d;
+
+    color:
+        #f3f2ed;
+
+    border-color:
+        #303333;
+}
+
+
+/* ==========================================================
+   DARK MODE — STATUS
+========================================================== */
+
+[data-theme="dark"] .research-status {
+
+    color:
+        #aaa9a2;
+}
+
+
+[data-theme="dark"] .status-indicator {
+
+    background:
+        #c8b07b;
+
+    box-shadow:
+        0 0 0 5px rgba(200, 176, 123, 0.08);
+}
+
+
+/* ==========================================================
+   DARK MODE — INTRO
+========================================================== */
+
+[data-theme="dark"] .progress-introduction h1 {
+
+    color:
+        #f3f2ed;
+}
+
+
+[data-theme="dark"] .progress-introduction p {
+
+    color:
+        #969792;
+}
+
+
+/* ==========================================================
+   DARK MODE — PIPELINE
+========================================================== */
+
+[data-theme="dark"] .research-pipeline::before {
+
+    background:
+        #404444;
+}
+
+
+[data-theme="dark"] .step-indicator {
+
+    border-color:
+        #505454;
+
+    background:
+        #101212;
+
+    color:
+        #8e918d;
+}
+
+
+[data-theme="dark"] .pipeline-step.completed .step-indicator {
+
+    border-color:
+        #d2cdbf;
+
+    background:
+        #d2cdbf;
+
+    color:
+        #101212;
+}
+
+
+[data-theme="dark"] .pipeline-step.active .step-indicator {
+
+    border-color:
+        #d2cdbf;
+
+    background:
+        #242828;
+
+    color:
+        #f3f2ed;
+}
+
+
+[data-theme="dark"] .pipeline-step h2 {
+
+    color:
+        #f3f2ed;
+}
+
+
+[data-theme="dark"] .pipeline-step p {
+
+    color:
+        #8e918d;
+}
+
+
+/* ==========================================================
+   DARK MODE — CARDS
+========================================================== */
+
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .sources-card {
+
+    border-color:
+        #303434;
+
+    background:
+        #181c1c;
+}
+
+
+[data-theme="dark"] .card-title h2 {
+
+    color:
+        #f3f2ed;
+}
+
+
+[data-theme="dark"] .card-icon {
+
+    color:
+        #c5c1b6;
+}
+
+
+[data-theme="dark"] .source-count {
+
+    color:
+        #aaa9a2;
+}
+
+
+/* ==========================================================
+   DARK MODE — ACTIVITY
+========================================================== */
+
+[data-theme="dark"] .activity-item {
+
+    color:
+        #777b78;
+}
+
+
+[data-theme="dark"] .activity-item time {
+
+    color:
+        #737773;
+}
+
+
+[data-theme="dark"] .activity-dot {
+
+    background:
+        #555957;
+}
+
+
+[data-theme="dark"] .activity-item.completed .activity-dot,
+[data-theme="dark"] .activity-item.active .activity-dot {
+
+    background:
+        #c9c3b5;
+}
+
+
+[data-theme="dark"] .activity-item.completed p,
+[data-theme="dark"] .activity-item.active p {
+
+    color:
+        #e2e1db;
+}
+
+
+/* ==========================================================
+   DARK MODE — SOURCES
+========================================================== */
+
+[data-theme="dark"] .source-item {
+
+    border-bottom-color:
+        #292d2d;
+}
+
+
+[data-theme="dark"] .source-logo {
+
+    border-color:
+        #444848;
+
+    color:
+        #deddd6;
+}
+
+
+[data-theme="dark"] .source-information h3 {
+
+    color:
+        #f3f2ed;
+}
+
+
+[data-theme="dark"] .source-information p {
+
+    color:
+        #777b78;
+}
+
+
+/* ==========================================================
+   DARK MODE — QUOTE
+========================================================== */
+
+[data-theme="dark"] .research-quote {
+
+    border-color:
+        #303434;
+
+    background:
+        #181c1c;
+
+    color:
+        #8e918d;
+}
+
+
+[data-theme="dark"] .analysis-status {
+
+    color:
+        #ddd9cf;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 850px) {
+
+    .research-pipeline {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            15px;
+    }
+
+
+    .research-pipeline::before {
+
+        display:
+            none;
+    }
+
+
+    .pipeline-step {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            36px 90px 1fr;
+
+        align-items:
+            center;
+
+        text-align:
+            left;
+    }
+
+
+    .step-indicator {
+
+        margin:
+            0;
+    }
+
+
+    .pipeline-step p {
+
+        margin:
+            0;
+
+        max-width:
+            none;
+    }
+
+
+    .progress-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+}
+
+
+@media (max-width: 560px) {
+
+    .research-progress {
+
+        width:
+            calc(100% - 24px);
+    }
+
+
+    .research-quote {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+
+
+    .activity-item {
+
+        grid-template-columns:
+            55px 12px 1fr;
+    }
+}

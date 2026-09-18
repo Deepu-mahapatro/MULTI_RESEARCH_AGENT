@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+runserver/
+
+# Environment variables
+.env
+
+# Django
+staticfiles/
+
+# IDE
+.vscode/
+.idea/

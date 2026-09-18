@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Research in Progress — ResearchAI</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/progress.css">
+
+</head>
+
+
+<body class="progress-page-body">
+
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="site-header progress-header">
+
+        <a
+            href="../index.html"
+            class="brand"
+        >
+            ResearchAI
+        </a>
+
+
+        <div class="header-actions">
+
+            <button
+                type="button"
+                class="theme-toggle"
+                id="themeToggle"
+            >
+
+                <span class="theme-icon">
+                    ☾
+                </span>
+
+                <span class="theme-label">
+                    Dark mode
+                </span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         MAIN PROGRESS AREA
+    =========================================== -->
+
+    <main class="research-progress">
+
+
+        <!-- ==========================================
+             CURRENT STATUS
+        =========================================== -->
+
+        <div class="research-status">
+
+            <span class="status-indicator"></span>
+
+            <span id="progressStatusText">
+                Research in Progress
+            </span>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             HEADING
+        =========================================== -->
+
+        <section class="progress-introduction">
+
+            <h1 id="progressTitle">
+                AI Agents are working on your research
+            </h1>
+
+            <p>
+                This may take a few minutes.
+                You can keep this page open.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             RESEARCH PIPELINE
+        =========================================== -->
+
+        <section
+            class="research-pipeline"
+            aria-label="Research progress"
+        >
+
+
+            <!-- ======================================
+                 STEP 1 — SEARCH
+            ======================================= -->
+
+            <article
+                class="pipeline-step completed"
+                data-step="search"
+            >
+
+                <div class="step-indicator">
+                    ✓
+                </div>
+
+                <h2>
+                    Search
+                </h2>
+
+                <p>
+                    Finding relevant
+                    sources
+                </p>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 STEP 2 — ANALYZE SOURCES
+            ======================================= -->
+
+            <article
+                class="pipeline-step"
+                data-step="analyze"
+            >
+
+                <div class="step-indicator">
+                    2
+                </div>
+
+                <h2>
+                    Analyze Sources
+                </h2>
+
+                <p>
+                    Reading and analyzing
+                    collected sources
+                </p>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 STEP 3 — WRITE
+            ======================================= -->
+
+            <article
+                class="pipeline-step"
+                data-step="write"
+            >
+
+                <div class="step-indicator">
+                    3
+                </div>
+
+                <h2>
+                    Write
+                </h2>
+
+                <p>
+                    Generating research
+                    report
+                </p>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 STEP 4 — AI REVIEW
+            ======================================= -->
+
+            <article
+                class="pipeline-step"
+                data-step="review"
+            >
+
+                <div class="step-indicator">
+                    4
+                </div>
+
+                <h2>
+                    AI Review
+                </h2>
+
+                <p>
+                    Checking accuracy
+                    and completeness
+                </p>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             ACTIVITY + SOURCES
+        =========================================== -->
+
+        <section class="progress-grid">
+
+
+            <!-- ======================================
+                 CURRENT ACTIVITY
+            ======================================= -->
+
+            <article class="activity-card">
+
+                <header class="card-header">
+
+                    <div class="card-title">
+
+                        <span class="card-icon">
+                            ▣
+                        </span>
+
+                        <h2>
+                            Current Activity
+                        </h2>
+
+                    </div>
+
+                </header>
+
+
+                <!--
+                    The JavaScript will add activity
+                    updates here as the research progresses.
+                -->
+
+                <div
+                    class="activity-timeline"
+                    id="activityTimeline"
+                >
+
+                    <div class="activity-item active">
+
+                        <time>
+                            --:--
+                        </time>
+
+                        <span class="activity-dot"></span>
+
+                        <p>
+                            Starting research...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ======================================
+                 SOURCES
+            ======================================= -->
+
+            <article class="sources-card">
+
+                <header class="card-header">
+
+                    <div class="card-title">
+
+                        <span class="card-icon">
+                            ◎
+                        </span>
+
+                        <h2>
+                            Sources Being Analyzed
+                        </h2>
+
+                    </div>
+
+
+                    <!--
+                        JavaScript updates this value.
+
+                        Example:
+                            5 / 5
+                    -->
+
+                    <span
+                        class="source-count"
+                        id="sourceCount"
+                    >
+                        0 / 0
+                    </span>
+
+                </header>
+
+
+                <!--
+                    Actual sources returned by Django
+                    will be inserted here.
+                -->
+
+                <div
+                    class="source-list"
+                    id="sourceList"
+                >
+
+                    <p class="empty-state">
+                        Searching for reliable sources...
+                    </p>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             BOTTOM MESSAGE
+        =========================================== -->
+
+        <aside class="research-quote">
+
+            <p>
+                “Good research is a combination of curiosity,
+                critical thinking, and reliable sources.”
+            </p>
+
+
+            <div class="analysis-status">
+
+                <span>
+                    ◉
+                </span>
+
+                <span id="analysisStatus">
+                    Processing...
+                </span>
+
+            </div>
+
+        </aside>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script src="../js/app.js"></script>
+
+    <script src="../js/progress.js"></script>
+
+
+</body>
+
+</html>

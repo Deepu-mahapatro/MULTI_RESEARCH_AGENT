@@ -1,0 +1,786 @@
+/* ==========================================================
+   RESEARCHAI
+   FINAL REPORT PAGE
+========================================================== */
+
+
+/* ==========================================================
+   PAGE
+========================================================== */
+
+.report-page {
+
+    width:
+        min(1180px, calc(100% - 40px));
+
+    margin:
+        0 auto;
+
+    padding-bottom:
+        60px;
+}
+
+
+/* ==========================================================
+   TOP SECTION
+========================================================== */
+
+.report-top {
+
+    padding:
+        24px 0 18px;
+
+    border-top:
+        1px solid var(--border);
+}
+
+
+.back-link {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.76rem;
+}
+
+
+.back-link:hover {
+    color:
+        var(--text);
+}
+
+
+.report-heading-row {
+
+    margin-top:
+        18px;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        end;
+
+    gap:
+        20px;
+}
+
+
+.report-heading h1 {
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        clamp(1.8rem, 4vw, 2.6rem);
+
+    line-height:
+        1.05;
+
+    letter-spacing:
+        -0.04em;
+}
+
+
+.report-heading p {
+
+    margin-top:
+        8px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.72rem;
+}
+
+
+.report-actions {
+
+    display:
+        flex;
+
+    gap:
+        8px;
+}
+
+
+/* ==========================================================
+   LAYOUT
+========================================================== */
+
+.report-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) 280px;
+
+    gap:
+        34px;
+}
+
+
+.report-content {
+    min-width:
+        0;
+}
+
+
+/* ==========================================================
+   TABS
+========================================================== */
+
+.report-tabs {
+
+    display:
+        flex;
+
+    gap:
+        22px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.report-tab {
+
+    padding:
+        12px 0;
+
+    border:
+        0;
+
+    border-bottom:
+        2px solid transparent;
+
+    background:
+        transparent;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.78rem;
+}
+
+
+.report-tab.active,
+.report-tab:hover {
+
+    color:
+        var(--text);
+
+    border-bottom-color:
+        var(--text);
+}
+
+
+/* ==========================================================
+   REPORT CONTENT
+========================================================== */
+
+.research-report {
+
+    padding:
+        30px 0;
+}
+
+
+.report-section {
+
+    margin-bottom:
+        34px;
+}
+
+
+.report-section h2 {
+
+    margin-bottom:
+        12px;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        1.25rem;
+}
+
+
+.report-section p {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.86rem;
+
+    line-height:
+        1.8;
+}
+
+
+.report-subsection {
+
+    margin-top:
+        20px;
+}
+
+
+.report-subsection h3 {
+
+    margin-bottom:
+        7px;
+
+    font-size:
+        0.95rem;
+}
+
+
+/* ==========================================================
+   SOURCE QUOTE
+========================================================== */
+
+.source-highlight {
+
+    margin-top:
+        20px;
+
+    padding:
+        18px 20px;
+
+    border-left:
+        2px solid var(--accent);
+
+    background:
+        var(--surface-soft);
+}
+
+
+.source-highlight p {
+
+    color:
+        var(--text);
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        0.86rem;
+
+    font-style:
+        italic;
+}
+
+
+.source-highlight cite {
+
+    display:
+        block;
+
+    margin-top:
+        8px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.7rem;
+
+    font-style:
+        normal;
+}
+
+
+/* ==========================================================
+   LIST
+========================================================== */
+
+.report-list {
+
+    padding-left:
+        20px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.86rem;
+
+    line-height:
+        1.9;
+}
+
+
+/* ==========================================================
+   SIDEBAR
+========================================================== */
+
+.report-sidebar {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        14px;
+}
+
+
+.overview-card,
+.top-sources-card {
+
+    padding:
+        18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    background:
+        var(--surface);
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.overview-card h2,
+.top-sources-card h2 {
+
+    font-size:
+        0.78rem;
+}
+
+
+/* ==========================================================
+   STATISTICS
+========================================================== */
+
+.overview-stat {
+
+    display:
+        flex;
+
+    gap:
+        10px;
+
+    align-items:
+        center;
+
+    padding:
+        14px 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.overview-stat:last-child {
+    border-bottom:
+        0;
+}
+
+
+.stat-icon {
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        50%;
+
+    color:
+        var(--accent);
+
+    font-size:
+        0.72rem;
+}
+
+
+.overview-stat strong,
+.overview-stat span {
+    display:
+        block;
+}
+
+
+.overview-stat strong {
+    font-size:
+        0.95rem;
+}
+
+
+.overview-stat div span {
+
+    margin-top:
+        2px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.65rem;
+}
+
+
+/* ==========================================================
+   TOP SOURCES
+========================================================== */
+
+.sidebar-card-header {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        12px;
+}
+
+
+.view-all-button {
+
+    border:
+        0;
+
+    background:
+        transparent;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.65rem;
+}
+
+
+.view-all-button:hover {
+    color:
+        var(--text);
+}
+
+
+.top-sources-list {
+
+    padding-left:
+        19px;
+}
+
+
+.top-source,
+.top-sources-list > li {
+
+    padding:
+        8px 0 8px 3px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.top-source:last-child {
+    border-bottom:
+        0;
+}
+
+
+.top-source strong,
+.top-source span {
+
+    display:
+        block;
+}
+
+
+.top-source strong {
+
+    font-size:
+        0.7rem;
+
+    font-weight:
+        600;
+}
+
+
+.top-source span {
+
+    margin-top:
+        2px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.62rem;
+}
+
+
+/* ==========================================================
+   TAB PANELS
+========================================================== */
+
+.tab-panel {
+
+    padding:
+        28px 0;
+}
+
+
+.tab-panel h2 {
+
+    margin-bottom:
+        16px;
+
+    font-family:
+        var(--font-display);
+
+    font-size:
+        1.3rem;
+}
+
+
+/* Sources */
+.all-sources-list {
+
+    display:
+        grid;
+
+    gap:
+        10px;
+}
+
+
+.report-source {
+
+    padding:
+        14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        var(--surface);
+}
+
+
+.report-source a {
+
+    color:
+        var(--text);
+
+    font-size:
+        0.8rem;
+
+    font-weight:
+        600;
+}
+
+
+.report-source p {
+
+    margin-top:
+        4px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.7rem;
+}
+
+
+/* Review */
+.review-box,
+.summary-box {
+
+    padding:
+        18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        var(--surface);
+}
+
+
+.review-box p,
+.summary-box p {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.82rem;
+
+    line-height:
+        1.7;
+}
+
+
+.review-metrics {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        10px;
+
+    margin-bottom:
+        16px;
+}
+
+
+.review-metric {
+
+    padding:
+        12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+}
+
+
+.review-metric strong,
+.review-metric span {
+
+    display:
+        block;
+}
+
+
+.review-metric strong {
+    font-size:
+        1rem;
+}
+
+
+.review-metric span {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        0.64rem;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .report-layout {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .report-sidebar {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .report-page {
+
+        width:
+            calc(100% - 24px);
+    }
+
+
+    .report-heading-row {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+
+
+    .report-actions {
+
+        width:
+            100%;
+    }
+
+
+    .report-action {
+
+        flex:
+            1;
+    }
+
+
+    .report-sidebar {
+        display:
+            flex;
+    }
+
+
+    .report-tabs {
+
+        overflow-x:
+            auto;
+
+        gap:
+            18px;
+    }
+
+
+    .review-metrics {
+
+        grid-template-columns:
+            1fr;
+    }
+}

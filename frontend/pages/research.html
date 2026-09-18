@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Start a new research task with ResearchAI"
+    >
+
+    <title>New Research — ResearchAI</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/research.css">
+
+</head>
+
+
+<body class="research-page-body">
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="site-header">
+
+        <a href="../index.html" class="brand">
+            ResearchAI
+        </a>
+
+
+        <nav class="main-navigation">
+
+            <a
+                href="research.html"
+                class="nav-link active"
+            >
+                Research
+            </a>
+
+        </nav>
+
+
+        <div class="header-actions">
+
+            <button
+                type="button"
+                class="theme-toggle"
+                id="themeToggle"
+                aria-label="Toggle theme"
+            >
+
+                <span class="theme-icon">☼</span>
+
+                <span class="theme-label">
+                    Light mode
+                </span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    =========================================== -->
+
+    <main class="research-main">
+
+
+        <!-- ======================================
+             HERO
+        ======================================= -->
+
+        <section class="hero-section">
+
+
+            <!-- Product badge -->
+
+            <div class="research-badge">
+
+                <span class="research-badge-dot"></span>
+
+                <span>
+                    Powered by Multi-Agent AI
+                </span>
+
+            </div>
+
+
+            <!-- Main heading -->
+
+            <h1 class="hero-title">
+
+                <span>
+                    Research Deeper.
+                </span>
+
+                <span>
+                    Understand Better.
+                </span>
+
+            </h1>
+
+
+            <!-- Description -->
+
+            <p class="hero-description">
+
+                Ask a question. Our AI research agents search,
+                read, analyze and generate a well-structured
+                report with trusted sources.
+
+            </p>
+
+
+            <!-- ==================================
+                 RESEARCH INPUT
+            =================================== -->
+
+            <form
+                class="research-form"
+                id="researchForm"
+            >
+
+                <div class="research-input-wrapper">
+
+
+                    <!-- Search icon -->
+
+                    <span
+                        class="research-search-icon"
+                        aria-hidden="true"
+                    >
+                        ⌕
+                    </span>
+
+
+                    <!-- Input -->
+
+                    <input
+                        type="text"
+                        id="researchTopic"
+                        name="researchTopic"
+                        class="research-input"
+                        placeholder="What would you like to research?"
+                        autocomplete="off"
+                        minlength="3"
+                        maxlength="500"
+                        required
+                    >
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        class="research-submit"
+                        id="startResearchButton"
+                        aria-label="Start research"
+                    >
+                        →
+                    </button>
+
+                </div>
+
+
+                <!-- Error -->
+
+                <p
+                    class="form-error"
+                    id="formError"
+                    role="alert"
+                ></p>
+
+
+                <!-- Loading -->
+
+                <div
+                    class="research-loading"
+                    id="researchLoading"
+                >
+
+                    <span class="loading-dot"></span>
+                    <span class="loading-dot"></span>
+                    <span class="loading-dot"></span>
+
+                    <span>
+                        Starting research...
+                    </span>
+
+                </div>
+
+            </form>
+
+
+            <!-- ==================================
+                 EXAMPLE TOPICS
+            =================================== -->
+
+            <div class="research-examples">
+
+                <span class="research-examples-label">
+                    Try an example:
+                </span>
+
+
+                <button
+                    type="button"
+                    class="example-topic"
+                    data-topic="Impact of AI on Indian Agriculture"
+                >
+                    Impact of AI on Indian Agriculture
+                </button>
+
+
+                <button
+                    type="button"
+                    class="example-topic"
+                    data-topic="Future of renewable energy"
+                >
+                    Future of renewable energy
+                </button>
+
+
+                <button
+                    type="button"
+                    class="example-topic"
+                    data-topic="AI in healthcare"
+                >
+                    AI in healthcare
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             AGENT WORKFLOW
+        =========================================== -->
+
+        <section class="workflow-section">
+
+
+            <!-- Workflow heading -->
+
+            <div class="workflow-heading">
+
+                <h2>
+                    How ResearchAI Works
+                </h2>
+
+                <p>
+                    Four AI-powered stages turn a question
+                    into a researched answer.
+                </p>
+
+            </div>
+
+
+            <!-- ======================================
+                 FOUR HORIZONTAL WORKFLOW STEPS
+            ======================================= -->
+
+            <div class="workflow-steps">
+
+
+                <!-- ==================================
+                     STEP 1 — SEARCH
+                =================================== -->
+
+                <article class="workflow-step active">
+
+                    <div class="workflow-icon">
+                        ⌕
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Search
+                        </h3>
+
+                        <p>
+                            Finds relevant sources
+                            from across the web.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ==================================
+                     STEP 2 — ANALYZE SOURCES
+                =================================== -->
+
+                <article class="workflow-step">
+
+                    <div class="workflow-icon">
+                        ◫
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Analyze Sources
+                        </h3>
+
+                        <p>
+                            Extracts and analyzes
+                            key information.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ==================================
+                     STEP 3 — WRITE
+                =================================== -->
+
+                <article class="workflow-step">
+
+                    <div class="workflow-icon">
+                        ✎
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Write
+                        </h3>
+
+                        <p>
+                            Generates a structured
+                            research report.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ==================================
+                     STEP 4 — AI REVIEW
+                =================================== -->
+
+                <article class="workflow-step">
+
+                    <div class="workflow-icon">
+                        ◇
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            AI Review
+                        </h3>
+
+                        <p>
+                            Checks accuracy
+                            and completeness.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             FOOTER
+        =========================================== -->
+
+        <footer class="research-footer">
+
+            <p>
+                “Better research leads to a brighter tomorrow.”
+            </p>
+
+            <span>
+                ResearchAI
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script src="../js/app.js"></script>
+
+    <script src="../js/research.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Research Report — ResearchAI</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/report.css">
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+    <header class="site-header report-header">
+
+        <a href="../index.html" class="brand">
+            ResearchAI
+        </a>
+
+        <div class="header-actions">
+
+            <!-- Theme -->
+            <button
+                type="button"
+                class="theme-toggle"
+                id="themeToggle"
+            >
+
+                <span class="theme-icon">
+                    ☼
+                </span>
+
+                <span class="theme-label">
+                    Light mode
+                </span>
+
+            </button>
+
+
+            <!-- New research -->
+            <a
+                href="research.html"
+                class="new-research-button"
+            >
+                New Research
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         MAIN REPORT
+    =========================================== -->
+    <main class="report-page">
+
+        <!-- Report heading -->
+        <section class="report-top">
+
+            <a
+                href="research.html"
+                class="back-link"
+            >
+                ← Back to Research
+            </a>
+
+
+            <div class="report-heading-row">
+
+                <div class="report-heading">
+
+                    <h1 id="reportTitle">
+                        Research Report
+                    </h1>
+
+                    <p id="reportDate">
+                        ResearchAI
+                    </p>
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="report-actions">
+
+                    <button
+                        type="button"
+                        class="report-action"
+                        id="downloadReport"
+                    >
+                        ↓ Download PDF
+                    </button>
+
+                    <button
+                        type="button"
+                        class="report-action"
+                        id="shareReport"
+                    >
+                        ⤴ Share
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             REPORT + SIDEBAR
+        =========================================== -->
+        <div class="report-layout">
+
+            <!-- Main report -->
+            <section class="report-content">
+
+                <!-- Tabs -->
+                <nav
+                    class="report-tabs"
+                    aria-label="Report sections"
+                >
+
+                    <button
+                        type="button"
+                        class="report-tab active"
+                        data-tab="report"
+                    >
+                        Report
+                    </button>
+
+                    <button
+                        type="button"
+                        class="report-tab"
+                        data-tab="sources"
+                    >
+                        Sources
+                    </button>
+
+                    <button
+                        type="button"
+                        class="report-tab"
+                        data-tab="review"
+                    >
+                        AI Review
+                    </button>
+
+                    <button
+                        type="button"
+                        class="report-tab"
+                        data-tab="summary"
+                    >
+                        Summary
+                    </button>
+
+                </nav>
+
+
+                <!-- Generated report -->
+                <article
+                    class="research-report"
+                    id="reportContent"
+                >
+                    <p class="loading-report">
+                        Loading research report...
+                    </p>
+                </article>
+
+
+                <!-- Sources tab -->
+                <section
+                    class="tab-panel hidden"
+                    id="sourcesPanel"
+                >
+
+                    <h2>
+                        Sources
+                    </h2>
+
+                    <div
+                        id="allSources"
+                        class="all-sources-list"
+                    ></div>
+
+                </section>
+
+
+                <!-- AI Review tab -->
+                <section
+                    class="tab-panel hidden"
+                    id="reviewPanel"
+                >
+
+                    <h2>
+                        AI Review
+                    </h2>
+
+                    <div id="reviewContent"></div>
+
+                </section>
+
+
+                <!-- Summary tab -->
+                <section
+                    class="tab-panel hidden"
+                    id="summaryPanel"
+                >
+
+                    <h2>
+                        Research Summary
+                    </h2>
+
+                    <div id="summaryContent"></div>
+
+                </section>
+
+            </section>
+
+
+            <!-- ======================================
+                 SIDEBAR
+            ======================================= -->
+            <aside class="report-sidebar">
+
+                <!-- Research overview -->
+                <section class="overview-card">
+
+                    <h2>
+                        Research Overview
+                    </h2>
+
+
+                    <div class="overview-stat">
+
+                        <span class="stat-icon">
+                            ▣
+                        </span>
+
+                        <div>
+
+                            <strong id="sourceTotal">
+                                0
+                            </strong>
+
+                            <span>
+                                Sources analyzed
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="overview-stat">
+
+                        <span class="stat-icon">
+                            ▤
+                        </span>
+
+                        <div>
+
+                            <strong id="wordTotal">
+                                0
+                            </strong>
+
+                            <span>
+                                Words
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="overview-stat">
+
+                        <span class="stat-icon">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong id="reviewScore">
+                                —
+                            </strong>
+
+                            <span>
+                                AI review 
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="overview-stat">
+
+                        <span class="stat-icon">
+                            ◉
+                        </span>
+
+                        <div>
+
+                            <strong id="sourceReliability">
+                                —
+                            </strong>
+
+                            <span>
+                                Source reliability
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Top sources -->
+                <section class="top-sources-card">
+
+                    <header class="sidebar-card-header">
+
+                        <h2>
+                            Top Sources
+                        </h2>
+
+                        <button
+                            type="button"
+                            class="view-all-button"
+                            id="viewAllSources"
+                        >
+                            View all →
+                        </button>
+
+                    </header>
+
+
+                    <ol
+                        class="top-sources-list"
+                        id="topSourcesList"
+                    >
+
+                        <li>
+                            Loading sources...
+                        </li>
+
+                    </ol>
+
+                </section>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <script src="../js/app.js"></script>
+    <script src="../js/report.js"></script>
+
+</body>
+</html>
