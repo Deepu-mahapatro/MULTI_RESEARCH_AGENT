@@ -1,35 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
+    <!-- ==========================================
+         GOOGLE ANALYTICS 4
+    =========================================== -->
+
+    <!--
+        Loads the Google Analytics library.
+        The async attribute allows it to load
+        without blocking the page.
+    -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-Y0344419RE"
+    ></script>
+
+    <script>
+        // Create the Google Analytics data layer.
+        window.dataLayer = window.dataLayer || [];
+
+        // Google Analytics tracking function.
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        // Initialize Google Analytics.
+        gtag("js", new Date());
+
+        // Configure Google Analytics
+        // using the ResearchAI Measurement ID.
+        gtag("config", "G-Y0344419RE");
+    </script>
+
+
+    <!-- ==========================================
+         PAGE META INFORMATION
+    =========================================== -->
+
+    <!-- Character encoding -->
     <meta charset="UTF-8">
 
+    <!-- Responsive design -->
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
+    <!-- Browser title -->
     <title>Research Report — ResearchAI</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/report.css">
+
+    <!-- ==========================================
+         CSS
+    =========================================== -->
+
+    <!-- Global styles -->
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <!-- Report page styles -->
+    <link
+        rel="stylesheet"
+        href="../css/report.css"
+    >
 
 </head>
 
+
 <body>
+
 
     <!-- ==========================================
          HEADER
     =========================================== -->
+
     <header class="site-header report-header">
 
-        <a href="../index.html" class="brand">
+        <!-- ResearchAI brand -->
+        <a
+            href="../index.html"
+            class="brand"
+        >
             ResearchAI
         </a>
 
+
         <div class="header-actions">
 
-            <!-- Theme -->
+            <!-- Theme toggle -->
             <button
                 type="button"
                 class="theme-toggle"
@@ -60,14 +122,21 @@
     </header>
 
 
+
     <!-- ==========================================
          MAIN REPORT
     =========================================== -->
+
     <main class="report-page">
 
-        <!-- Report heading -->
+
+        <!-- ======================================
+             REPORT HEADING
+        ======================================= -->
+
         <section class="report-top">
 
+            <!-- Back to research -->
             <a
                 href="research.html"
                 class="back-link"
@@ -78,6 +147,8 @@
 
             <div class="report-heading-row">
 
+
+                <!-- Report title -->
                 <div class="report-heading">
 
                     <h1 id="reportTitle">
@@ -91,9 +162,10 @@
                 </div>
 
 
-                <!-- Actions -->
+                <!-- Report actions -->
                 <div class="report-actions">
 
+                    <!-- Download report -->
                     <button
                         type="button"
                         class="report-action"
@@ -102,6 +174,8 @@
                         ↓ Download PDF
                     </button>
 
+
+                    <!-- Share report -->
                     <button
                         type="button"
                         class="report-action"
@@ -117,15 +191,22 @@
         </section>
 
 
+
         <!-- ==========================================
              REPORT + SIDEBAR
         =========================================== -->
+
         <div class="report-layout">
 
-            <!-- Main report -->
+
+            <!-- ======================================
+                 MAIN REPORT CONTENT
+            ======================================= -->
+
             <section class="report-content">
 
-                <!-- Tabs -->
+
+                <!-- Report tabs -->
                 <nav
                     class="report-tabs"
                     aria-label="Report sections"
@@ -139,6 +220,7 @@
                         Report
                     </button>
 
+
                     <button
                         type="button"
                         class="report-tab"
@@ -147,6 +229,7 @@
                         Sources
                     </button>
 
+
                     <button
                         type="button"
                         class="report-tab"
@@ -154,6 +237,7 @@
                     >
                         AI Review
                     </button>
+
 
                     <button
                         type="button"
@@ -166,18 +250,28 @@
                 </nav>
 
 
-                <!-- Generated report -->
+
+                <!-- ==================================
+                     GENERATED REPORT
+                =================================== -->
+
                 <article
                     class="research-report"
                     id="reportContent"
                 >
+
                     <p class="loading-report">
                         Loading research report...
                     </p>
+
                 </article>
 
 
-                <!-- Sources tab -->
+
+                <!-- ==================================
+                     SOURCES TAB
+                =================================== -->
+
                 <section
                     class="tab-panel hidden"
                     id="sourcesPanel"
@@ -195,7 +289,11 @@
                 </section>
 
 
-                <!-- AI Review tab -->
+
+                <!-- ==================================
+                     AI REVIEW TAB
+                =================================== -->
+
                 <section
                     class="tab-panel hidden"
                     id="reviewPanel"
@@ -210,7 +308,11 @@
                 </section>
 
 
-                <!-- Summary tab -->
+
+                <!-- ==================================
+                     SUMMARY TAB
+                =================================== -->
+
                 <section
                     class="tab-panel hidden"
                     id="summaryPanel"
@@ -227,12 +329,18 @@
             </section>
 
 
+
             <!-- ======================================
                  SIDEBAR
             ======================================= -->
+
             <aside class="report-sidebar">
 
-                <!-- Research overview -->
+
+                <!-- ==================================
+                     RESEARCH OVERVIEW
+                =================================== -->
+
                 <section class="overview-card">
 
                     <h2>
@@ -240,6 +348,7 @@
                     </h2>
 
 
+                    <!-- Sources analyzed -->
                     <div class="overview-stat">
 
                         <span class="stat-icon">
@@ -261,6 +370,8 @@
                     </div>
 
 
+
+                    <!-- Word count -->
                     <div class="overview-stat">
 
                         <span class="stat-icon">
@@ -282,6 +393,8 @@
                     </div>
 
 
+
+                    <!-- AI review -->
                     <div class="overview-stat">
 
                         <span class="stat-icon">
@@ -295,7 +408,7 @@
                             </strong>
 
                             <span>
-                                AI review 
+                                AI review
                             </span>
 
                         </div>
@@ -303,6 +416,8 @@
                     </div>
 
 
+
+                    <!-- Source reliability -->
                     <div class="overview-stat">
 
                         <span class="stat-icon">
@@ -326,7 +441,11 @@
                 </section>
 
 
-                <!-- Top sources -->
+
+                <!-- ==================================
+                     TOP SOURCES
+                =================================== -->
+
                 <section class="top-sources-card">
 
                     <header class="sidebar-card-header">
@@ -366,8 +485,18 @@
     </main>
 
 
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <!-- Global JavaScript -->
     <script src="../js/app.js"></script>
+
+    <!-- Report page JavaScript -->
     <script src="../js/report.js"></script>
 
+
 </body>
+
 </html>
