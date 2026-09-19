@@ -3,23 +3,80 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ==========================================
+         GOOGLE ANALYTICS 4
+    =========================================== -->
 
+    <!--
+        Loads the Google Analytics library.
+        The async attribute allows it to load
+        without blocking the page.
+    -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-Y0344419RE"
+    ></script>
+
+    <script>
+        // Create the Google Analytics data layer.
+        window.dataLayer = window.dataLayer || [];
+
+        // Google Analytics tracking function.
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        // Initialize Google Analytics.
+        gtag("js", new Date());
+
+        // Configure Google Analytics
+        // using the ResearchAI Measurement ID.
+        gtag("config", "G-Y0344419RE");
+    </script>
+
+
+    <!-- ==========================================
+         PAGE META INFORMATION
+    =========================================== -->
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive design -->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- Page description -->
     <meta
         name="description"
         content="Start a new research task with ResearchAI"
     >
 
+    <!-- Browser title -->
     <title>New Research — ResearchAI</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/research.css">
+
+    <!-- ==========================================
+         CSS
+    =========================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/research.css"
+    >
 
 </head>
 
 
 <body class="research-page-body">
+
 
     <!-- ==========================================
          HEADER
@@ -27,11 +84,16 @@
 
     <header class="site-header">
 
-        <a href="../index.html" class="brand">
+        <!-- ResearchAI brand -->
+        <a
+            href="../index.html"
+            class="brand"
+        >
             ResearchAI
         </a>
 
 
+        <!-- Main navigation -->
         <nav class="main-navigation">
 
             <a
@@ -44,8 +106,10 @@
         </nav>
 
 
+        <!-- Header actions -->
         <div class="header-actions">
 
+            <!-- Theme toggle -->
             <button
                 type="button"
                 class="theme-toggle"
@@ -53,7 +117,9 @@
                 aria-label="Toggle theme"
             >
 
-                <span class="theme-icon">☼</span>
+                <span class="theme-icon">
+                    ☼
+                </span>
 
                 <span class="theme-label">
                     Light mode
@@ -64,6 +130,7 @@
         </div>
 
     </header>
+
 
 
     <!-- ==========================================
@@ -81,7 +148,6 @@
 
 
             <!-- Product badge -->
-
             <div class="research-badge">
 
                 <span class="research-badge-dot"></span>
@@ -94,7 +160,6 @@
 
 
             <!-- Main heading -->
-
             <h1 class="hero-title">
 
                 <span>
@@ -109,7 +174,6 @@
 
 
             <!-- Description -->
-
             <p class="hero-description">
 
                 Ask a question. Our AI research agents search,
@@ -117,6 +181,7 @@
                 report with trusted sources.
 
             </p>
+
 
 
             <!-- ==================================
@@ -132,7 +197,6 @@
 
 
                     <!-- Search icon -->
-
                     <span
                         class="research-search-icon"
                         aria-hidden="true"
@@ -141,8 +205,7 @@
                     </span>
 
 
-                    <!-- Input -->
-
+                    <!-- Research input -->
                     <input
                         type="text"
                         id="researchTopic"
@@ -156,8 +219,7 @@
                     >
 
 
-                    <!-- Submit -->
-
+                    <!-- Submit button -->
                     <button
                         type="submit"
                         class="research-submit"
@@ -170,8 +232,7 @@
                 </div>
 
 
-                <!-- Error -->
-
+                <!-- Error message -->
                 <p
                     class="form-error"
                     id="formError"
@@ -179,8 +240,7 @@
                 ></p>
 
 
-                <!-- Loading -->
-
+                <!-- Loading indicator -->
                 <div
                     class="research-loading"
                     id="researchLoading"
@@ -197,6 +257,7 @@
                 </div>
 
             </form>
+
 
 
             <!-- ==================================
@@ -241,6 +302,7 @@
         </section>
 
 
+
         <!-- ==========================================
              AGENT WORKFLOW
         =========================================== -->
@@ -249,7 +311,6 @@
 
 
             <!-- Workflow heading -->
-
             <div class="workflow-heading">
 
                 <h2>
@@ -262,6 +323,7 @@
                 </p>
 
             </div>
+
 
 
             <!-- ======================================
@@ -297,6 +359,7 @@
                 </article>
 
 
+
                 <!-- ==================================
                      STEP 2 — ANALYZE SOURCES
                 =================================== -->
@@ -323,6 +386,7 @@
                 </article>
 
 
+
                 <!-- ==================================
                      STEP 3 — WRITE
                 =================================== -->
@@ -347,6 +411,7 @@
                     </div>
 
                 </article>
+
 
 
                 <!-- ==================================
@@ -380,6 +445,7 @@
         </section>
 
 
+
         <!-- ==========================================
              FOOTER
         =========================================== -->
@@ -400,12 +466,15 @@
     </main>
 
 
+
     <!-- ==========================================
          JAVASCRIPT
     =========================================== -->
 
+    <!-- Global JavaScript -->
     <script src="../js/app.js"></script>
 
+    <!-- Research page JavaScript -->
     <script src="../js/research.js"></script>
 
 
