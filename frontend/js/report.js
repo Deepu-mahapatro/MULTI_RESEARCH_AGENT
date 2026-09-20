@@ -687,6 +687,10 @@ function setupActions() {
         );
 
 
+    /* ------------------------------------------------------
+       VIEW ALL SOURCES
+    ------------------------------------------------------ */
+
     if (viewAllSources) {
 
         viewAllSources.addEventListener(
@@ -708,11 +712,46 @@ function setupActions() {
     }
 
 
+    /* ------------------------------------------------------
+       DOWNLOAD REPORT
+    ------------------------------------------------------ */
+
     if (downloadButton) {
 
         downloadButton.addEventListener(
             "click",
             () => {
+
+                /*
+                    Track the Download PDF button click.
+
+                    NOTE:
+                    The actual PDF export is not connected
+                    yet, so this currently measures the
+                    download button click.
+                */
+
+                if (
+                    typeof gtag === "function"
+                ) {
+
+                    gtag(
+                        "event",
+                        "report_downloaded"
+                    );
+
+
+                    console.log(
+                        "Google Analytics event sent: report_downloaded"
+                    );
+
+                } else {
+
+                    console.warn(
+                        "Google Analytics gtag function is not available."
+                    );
+                }
+
 
                 alert(
                     "PDF export will be connected to Django."
@@ -721,6 +760,10 @@ function setupActions() {
         );
     }
 
+
+    /* ------------------------------------------------------
+       SHARE REPORT
+    ------------------------------------------------------ */
 
     if (shareButton) {
 
@@ -742,6 +785,10 @@ function setupActions() {
                 };
 
 
+                /* ==========================================
+                   NATIVE SHARE
+                ========================================== */
+
                 if (
                     navigator.share
                 ) {
@@ -752,12 +799,50 @@ function setupActions() {
                             shareData
                         );
 
+
+                        /*
+                            Track only after the share
+                            action succeeds.
+
+                            If the user cancels sharing,
+                            this event is NOT sent.
+                        */
+
+                        if (
+                            typeof gtag === "function"
+                        ) {
+
+                            gtag(
+                                "event",
+                                "report_shared"
+                            );
+
+
+                            console.log(
+                                "Google Analytics event sent: report_shared"
+                            );
+
+                        } else {
+
+                            console.warn(
+                                "Google Analytics gtag function is not available."
+                            );
+                        }
+
                     } catch {
 
                         /*
                             User cancelled sharing.
+
+                            Do not count this as
+                            a successful share.
                         */
                     }
+
+
+                /* ==========================================
+                   FALLBACK: COPY LINK
+                ========================================== */
 
                 } else {
 
@@ -766,6 +851,33 @@ function setupActions() {
                         await navigator.clipboard.writeText(
                             window.location.href
                         );
+
+
+                        /*
+                            Track successful fallback
+                            share action.
+                        */
+
+                        if (
+                            typeof gtag === "function"
+                        ) {
+
+                            gtag(
+                                "event",
+                                "report_shared"
+                            );
+
+
+                            console.log(
+                                "Google Analytics event sent: report_shared"
+                            );
+
+                        } else {
+
+                            console.warn(
+                                "Google Analytics gtag function is not available."
+                            );
+                        }
 
 
                         shareButton.textContent =
