@@ -164,7 +164,7 @@
         grid;
 
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(4, 1fr);
 
     margin-bottom:
         42px;

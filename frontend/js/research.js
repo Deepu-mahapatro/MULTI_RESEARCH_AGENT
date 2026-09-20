@@ -142,9 +142,12 @@ if (researchForm) {
             if (submitButton) {
 
                 submitButton.disabled = true;
-
+                /*
+                Keep the arrow visible while
+                the research request is being created.
+                */
                 submitButton.textContent =
-                    "Researching…";
+                   "→";
             }
 
 
