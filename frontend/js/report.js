@@ -13,6 +13,7 @@
 const API_BASE_URL =
     "https://multi-research-agent-luez.onrender.com";
 
+
 /* ==========================================================
    GET RESEARCH ID
 ========================================================== */
@@ -108,35 +109,9 @@ function escapeHTML(value = "") {
    SOURCE RELIABILITY
 ========================================================== */
 
-/*
-    Calculate a simple source reliability level based
-    on the domains returned by the research process.
-
-    IMPORTANT:
-
-    This is a heuristic indicator.
-
-    It is NOT a scientific measurement of whether
-    a source is factually correct.
-
-    High:
-        Mostly official / academic / recognized
-        organizations.
-
-    Medium:
-        A mixture of recognized and general sources.
-
-    Low:
-        Mostly unknown or general domains.
-*/
-
 function calculateSourceReliability(
     sources = []
 ) {
-
-    /* ------------------------------------------------------
-       NO SOURCES
-    ------------------------------------------------------ */
 
     if (!sources.length) {
 
@@ -150,10 +125,6 @@ function calculateSourceReliability(
 
     let lowTrust = 0;
 
-
-    /* ------------------------------------------------------
-       CHECK EACH SOURCE
-    ------------------------------------------------------ */
 
     sources.forEach(
         (source) => {
@@ -183,10 +154,6 @@ function calculateSourceReliability(
                         );
 
 
-                /* ------------------------------------------
-                   HIGH TRUST DOMAINS
-                ------------------------------------------ */
-
                 const isHighTrust =
                     hostname.endsWith(".gov") ||
                     hostname.endsWith(".gov.in") ||
@@ -201,10 +168,6 @@ function calculateSourceReliability(
                     hostname === "wikipedia.org" ||
                     hostname.endsWith(".wikipedia.org");
 
-
-                /* ------------------------------------------
-                   MEDIUM TRUST DOMAINS
-                ------------------------------------------ */
 
                 const isMediumTrust =
                     hostname.endsWith(".org") ||
@@ -221,10 +184,6 @@ function calculateSourceReliability(
                     hostname.includes("w3schools.com");
 
 
-                /* ------------------------------------------
-                   CLASSIFY SOURCE
-                ------------------------------------------ */
-
                 if (isHighTrust) {
 
                     highTrust++;
@@ -240,20 +199,11 @@ function calculateSourceReliability(
 
             } catch {
 
-                /*
-                    Invalid URLs are treated as
-                    low-confidence sources.
-                */
-
                 lowTrust++;
             }
         }
     );
 
-
-    /* ------------------------------------------------------
-       TOTAL SOURCES
-    ------------------------------------------------------ */
 
     const total =
         highTrust +
@@ -267,10 +217,6 @@ function calculateSourceReliability(
     }
 
 
-    /* ------------------------------------------------------
-       CALCULATE RATIOS
-    ------------------------------------------------------ */
-
     const highRatio =
         highTrust / total;
 
@@ -281,10 +227,6 @@ function calculateSourceReliability(
             mediumTrust
         ) / total;
 
-
-    /* ------------------------------------------------------
-       FINAL RELIABILITY LEVEL
-    ------------------------------------------------------ */
 
     if (highRatio >= 0.5) {
 
@@ -343,28 +285,11 @@ function renderReport(
             .map(
                 (section) => {
 
-                    /*
-                        Escape the AI-generated text first.
-
-                        This prevents the report content
-                        from being interpreted as raw HTML.
-                    */
-
                     let safeText =
                         escapeHTML(
                             section
                         );
 
-
-                    /*
-                        Convert Markdown headings.
-
-                        Example:
-
-                        # Introduction
-                        ## Main Findings
-                        ### Details
-                    */
 
                     safeText =
                         safeText.replace(
@@ -387,29 +312,12 @@ function renderReport(
                         );
 
 
-                    /*
-                        Convert Markdown bold text.
-
-                        Example:
-
-                        **Redis**
-                    */
-
                     safeText =
                         safeText.replace(
                             /\*\*(.+?)\*\*/g,
                             "<strong>$1</strong>"
                         );
 
-
-                    /*
-                        Convert simple bullet points.
-
-                        Example:
-
-                        - Redis is fast
-                        - Redis supports caching
-                    */
 
                     safeText =
                         safeText.replace(
@@ -418,28 +326,12 @@ function renderReport(
                         );
 
 
-                    /*
-                        Handle escaped bullet points.
-
-                        Sometimes the LLM may return:
-
-                        \* Item
-
-                        instead of:
-
-                        - Item
-                    */
-
                     safeText =
                         safeText.replace(
                             /^\\\* (.+)$/gm,
                             "• $1"
                         );
 
-
-                    /*
-                        Convert remaining line breaks.
-                    */
 
                     safeText =
                         safeText.replace(
@@ -467,20 +359,12 @@ function renderSources(
     sources = []
 ) {
 
-    /* ------------------------------------------------------
-       TOTAL SOURCE COUNT
-    ------------------------------------------------------ */
-
     if (sourceTotal) {
 
         sourceTotal.textContent =
             sources.length;
     }
 
-
-    /* ------------------------------------------------------
-       TOP SOURCES
-    ------------------------------------------------------ */
 
     if (topSourcesList) {
 
@@ -521,10 +405,6 @@ function renderSources(
         }
     }
 
-
-    /* ------------------------------------------------------
-       ALL SOURCES
-    ------------------------------------------------------ */
 
     if (allSources) {
 
@@ -590,27 +470,15 @@ function renderReview(
     }
 
 
-    /* ------------------------------------------------------
-       GET REAL CRITIC STATUS
-    ------------------------------------------------------ */
-
     const criticStatus =
         review.status ||
         "—";
 
 
-    /* ------------------------------------------------------
-       GET CRITIC FEEDBACK
-    ------------------------------------------------------ */
-
     const criticFeedback =
         review.feedback ||
         "No critic feedback available.";
 
-
-    /* ------------------------------------------------------
-       UPDATE RESEARCH OVERVIEW
-    ------------------------------------------------------ */
 
     if (reviewScore) {
 
@@ -618,10 +486,6 @@ function renderReview(
             criticStatus;
     }
 
-
-    /* ------------------------------------------------------
-       DETERMINE STATUS CLASS
-    ------------------------------------------------------ */
 
     let statusClass = "";
 
@@ -643,10 +507,6 @@ function renderReview(
             "review-needs-improvement";
     }
 
-
-    /* ------------------------------------------------------
-       DISPLAY AI REVIEW
-    ------------------------------------------------------ */
 
     reviewContent.innerHTML = `
 
@@ -827,10 +687,6 @@ function setupActions() {
         );
 
 
-    /* ------------------------------------------------------
-       VIEW ALL SOURCES
-    ------------------------------------------------------ */
-
     if (viewAllSources) {
 
         viewAllSources.addEventListener(
@@ -852,10 +708,6 @@ function setupActions() {
     }
 
 
-    /* ------------------------------------------------------
-       DOWNLOAD REPORT
-    ------------------------------------------------------ */
-
     if (downloadButton) {
 
         downloadButton.addEventListener(
@@ -869,10 +721,6 @@ function setupActions() {
         );
     }
 
-
-    /* ------------------------------------------------------
-       SHARE REPORT
-    ------------------------------------------------------ */
 
     if (shareButton) {
 
@@ -1041,25 +889,8 @@ async function loadReport() {
 
         renderReview({
 
-            /*
-                Real status returned by Django.
-
-                Example:
-
-                    PASS
-
-                or:
-
-                    NEEDS IMPROVEMENT
-            */
-
             status:
                 data.critic_status || "",
-
-
-            /*
-                Real feedback returned by Django.
-            */
 
             feedback:
                 data.critic_feedback || ""
@@ -1092,11 +923,6 @@ async function loadReport() {
            SOURCES
         ================================================== */
 
-        /*
-            Django returns saved ResearchSource
-            records through the "sources" field.
-        */
-
         renderSources(
             data.sources || []
         );
@@ -1105,11 +931,6 @@ async function loadReport() {
         /* ==================================================
            SUMMARY
         ================================================== */
-
-        /*
-            Django returns the AI-generated summary
-            through the "summary" field.
-        */
 
         renderSummary(
             data.summary || ""
@@ -1120,20 +941,47 @@ async function loadReport() {
            SOURCE RELIABILITY
         ================================================== */
 
-        /*
-            Calculate reliability from the actual
-            sources returned by Django.
-
-            This is a transparent domain-based heuristic,
-            not a factual accuracy score.
-        */
-
         if (sourceReliability) {
 
             sourceReliability.textContent =
                 calculateSourceReliability(
                     data.sources || []
                 );
+        }
+
+
+        /* ==================================================
+           GOOGLE ANALYTICS
+           REPORT VIEWED EVENT
+        ================================================== */
+
+        /*
+            The report was successfully loaded
+            from the Django API.
+
+            Therefore, record that the user
+            viewed a research report.
+        */
+
+        if (
+            typeof gtag === "function"
+        ) {
+
+            gtag(
+                "event",
+                "report_viewed"
+            );
+
+
+            console.log(
+                "Google Analytics event sent: report_viewed"
+            );
+
+        } else {
+
+            console.warn(
+                "Google Analytics gtag function is not available."
+            );
         }
 
     }
