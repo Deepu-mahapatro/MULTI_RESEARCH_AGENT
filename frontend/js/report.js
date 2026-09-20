@@ -11,8 +11,7 @@
 ========================================================== */
 
 const API_BASE_URL =
-    "https://multi-research-agent-luez.onrender.com";
-
+    "http://127.0.0.1:8000";
 
 /* ==========================================================
    GET RESEARCH ID
@@ -720,42 +719,172 @@ function setupActions() {
 
         downloadButton.addEventListener(
             "click",
-            () => {
+            async () => {
 
-                /*
-                    Track the Download PDF button click.
+                try {
 
-                    NOTE:
-                    The actual PDF export is not connected
-                    yet, so this currently measures the
-                    download button click.
-                */
+                    downloadButton.disabled = true;
 
-                if (
-                    typeof gtag === "function"
-                ) {
+                    downloadButton.textContent =
+                        "Generating PDF...";
 
-                    gtag(
-                        "event",
-                        "report_downloaded"
+
+                    /*
+                        Request the PDF from Django.
+
+                        Django will:
+                            1. Find the research.
+                            2. Generate the PDF.
+                            3. Return the PDF file.
+                    */
+
+                    const response =
+                        await fetch(
+                            `${API_BASE_URL}/api/research/${encodeURIComponent(
+                                reportResearchId
+                            )}/pdf/`
+                        );
+
+
+                    if (!response.ok) {
+
+                        let errorMessage =
+                            "Unable to generate PDF.";
+
+                        try {
+
+                            const errorData =
+                                await response.json();
+
+                            errorMessage =
+                                errorData.error ||
+                                errorMessage;
+
+                        } catch {
+
+                            // Keep the default error message.
+                        }
+
+                        throw new Error(
+                            errorMessage
+                        );
+                    }
+
+
+                    /*
+                        Convert the response into
+                        a PDF Blob.
+                    */
+
+                    const blob =
+                        await response.blob();
+
+
+                    /*
+                        Create a temporary URL
+                        for the PDF.
+                    */
+
+                    const pdfUrl =
+                        window.URL.createObjectURL(
+                            blob
+                        );
+
+
+                    /*
+                        Create a temporary
+                        download link.
+                    */
+
+                    const link =
+                        document.createElement(
+                            "a"
+                        );
+
+                    link.href =
+                        pdfUrl;
+
+                    link.download =
+                        "research-report.pdf";
+
+
+                    document.body.appendChild(
+                        link
                     );
 
 
-                    console.log(
-                        "Google Analytics event sent: report_downloaded"
+                    /*
+                        Start the download.
+                    */
+
+                    link.click();
+
+
+                    /*
+                        Remove the temporary link.
+                    */
+
+                    link.remove();
+
+
+                    /*
+                        Release the temporary URL.
+                    */
+
+                    window.URL.revokeObjectURL(
+                        pdfUrl
                     );
 
-                } else {
 
-                    console.warn(
-                        "Google Analytics gtag function is not available."
+                    /* ======================================
+                       GOOGLE ANALYTICS
+                       REPORT DOWNLOADED
+                    ====================================== */
+
+                    if (
+                        typeof gtag === "function"
+                    ) {
+
+                        gtag(
+                            "event",
+                            "report_downloaded"
+                        );
+
+
+                        console.log(
+                            "Google Analytics event sent: report_downloaded"
+                        );
+
+                    } else {
+
+                        console.warn(
+                            "Google Analytics gtag function is not available."
+                        );
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "PDF DOWNLOAD ERROR:",
+                        error
                     );
+
+
+                    alert(
+                        error.message ||
+                        "Unable to download PDF."
+                    );
+
+
+                } finally {
+
+                    downloadButton.disabled =
+                        false;
+
+                    downloadButton.textContent =
+                        "Download PDF";
                 }
-
-
-                alert(
-                    "PDF export will be connected to Django."
-                );
             }
         );
     }

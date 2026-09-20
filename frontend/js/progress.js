@@ -8,7 +8,7 @@
 */
 
 const API_BASE_URL =
-    "https://multi-research-agent-luez.onrender.com";
+    "http://127.0.0.1:8000";
 
 
 /*
@@ -70,6 +70,20 @@ const pipelineStages = [
     "write",
     "review"
 ];
+
+
+/*
+    ============================================
+    STAGE NUMBERS
+    ============================================
+*/
+
+const stageNumbers = {
+    search: "1",
+    analyze: "2",
+    write: "3",
+    review: "4"
+};
 
 
 /*
@@ -193,36 +207,92 @@ function updatePipeline(status) {
     const currentStage =
         getStageFromStatus(status);
 
+
+    /*
+        progress.html uses:
+
+            data-step="search"
+            data-step="analyze"
+            data-step="write"
+            data-step="review"
+
+        Therefore JavaScript searches
+        for [data-step].
+    */
+
     const stageElements =
         document.querySelectorAll(
-            "[data-stage]"
+            "[data-step]"
         );
+
 
     let currentIndex =
         pipelineStages.indexOf(currentStage);
 
 
+    /*
+        When research is completed,
+        all four stages become completed.
+    */
+
     if (currentStage === "completed") {
+
         currentIndex =
             pipelineStages.length;
     }
 
 
+    /*
+        Update every pipeline stage.
+    */
+
     stageElements.forEach(
         (element) => {
 
             const stage =
-                element.dataset.stage;
+                element.dataset.step;
+
 
             const stageIndex =
                 pipelineStages.indexOf(stage);
 
+
+            /*
+                Get the indicator inside
+                the current pipeline stage.
+
+                Example:
+
+                    <div class="step-indicator">
+                        2
+                    </div>
+            */
+
+            const indicator =
+                element.querySelector(
+                    ".step-indicator"
+                );
+
+
+            /*
+                Remove old states first.
+
+                This prevents an old
+                active/completed state
+                from remaining incorrectly.
+            */
 
             element.classList.remove(
                 "active",
                 "completed"
             );
 
+
+            /*
+                ==================================
+                COMPLETED RESEARCH
+                ==================================
+            */
 
             if (
                 currentStage === "completed"
@@ -232,7 +302,26 @@ function updatePipeline(status) {
                     "completed"
                 );
 
+
+                /*
+                    Change the indicator
+                    to a checkmark.
+                */
+
+                if (indicator) {
+
+                    indicator.textContent =
+                        "✓";
+                }
             }
+
+
+            /*
+                ==================================
+                PREVIOUS COMPLETED STAGES
+                ==================================
+            */
+
             else if (
                 stageIndex < currentIndex
             ) {
@@ -241,7 +330,26 @@ function updatePipeline(status) {
                     "completed"
                 );
 
+
+                /*
+                    Change the completed stage
+                    number to a checkmark.
+                */
+
+                if (indicator) {
+
+                    indicator.textContent =
+                        "✓";
+                }
             }
+
+
+            /*
+                ==================================
+                CURRENT ACTIVE STAGE
+                ==================================
+            */
+
             else if (
                 stage === currentStage
             ) {
@@ -249,6 +357,44 @@ function updatePipeline(status) {
                 element.classList.add(
                     "active"
                 );
+
+
+                /*
+                    Keep the current stage number.
+                */
+
+                if (indicator) {
+
+                    indicator.textContent =
+                        stageNumbers[stage];
+                }
+            }
+
+
+            /*
+                ==================================
+                FUTURE STAGES
+                ==================================
+            */
+
+            else {
+
+                /*
+                    Restore the original
+                    stage number.
+
+                    Example:
+
+                        Analyze → 2
+                        Write   → 3
+                        Review  → 4
+                */
+
+                if (indicator) {
+
+                    indicator.textContent =
+                        stageNumbers[stage];
+                }
             }
         }
     );
@@ -308,6 +454,7 @@ function addActivity(status) {
 
     const item =
         document.createElement("div");
+
 
     item.className =
         "activity-item";
@@ -371,6 +518,7 @@ function updateSources(sources) {
                     const title =
                         source.title ||
                         "Research Source";
+
 
                     const url =
                         source.url ||
@@ -631,11 +779,13 @@ document.addEventListener(
                 "No research ID found."
             );
 
+
             if (analysisStatus) {
 
                 analysisStatus.textContent =
                     "Research ID not found.";
             }
+
 
             return;
         }

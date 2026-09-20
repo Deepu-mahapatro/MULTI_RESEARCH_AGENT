@@ -35,7 +35,8 @@ const exampleButtons =
    DJANGO API
 ========================================================== */
 
-const API_BASE_URL = "https://multi-research-agent-luez.onrender.com";
+const API_BASE_URL =
+    "https://multi-research-agent-luez.onrender.com";
 
 
 /* ==========================================================
