@@ -242,10 +242,10 @@ if (researchForm) {
                     data.research.id;
 
 
-                console.log(
-                    "Research ID:",
-                    researchId
-                );
+                // Track when a user successfully starts a research request.
+                if (typeof gtag === "function") {
+                   gtag("event", "research_started");
+                }
 
 
                 /* --------------------------------------------------
