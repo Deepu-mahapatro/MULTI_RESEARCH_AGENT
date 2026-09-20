@@ -1,479 +1,253 @@
-/* ==========================================================
-   RESEARCHAI
-   PROGRESS PAGE JAVASCRIPT
-========================================================== */
-
 "use strict";
 
 
-/* ==========================================================
-   DJANGO API
-========================================================== */
+/*
+    ============================================
+    CONFIGURATION
+    ============================================
+*/
 
-const API_BASE_URL = "https://multi-research-agent-luez.onrender.com";
+const API_BASE_URL =
+    "https://multi-research-agent-luez.onrender.com";
 
 
-/* ==========================================================
-   GET RESEARCH ID
-========================================================== */
+/*
+    ============================================
+    GET RESEARCH ID
+    ============================================
+*/
 
 const urlParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const urlResearchId =
-    urlParams.get("id");
-
-const storedResearchId =
-    sessionStorage.getItem(
-        "research_id"
-    );
+    new URLSearchParams(window.location.search);
 
 const researchId =
-    urlResearchId ||
-    storedResearchId;
+    urlParams.get("id") ||
+    sessionStorage.getItem("research_id");
 
 
-/* ==========================================================
-   GET RESEARCH TOPIC
-========================================================== */
-
-const researchTopic =
-    sessionStorage.getItem(
-        "research_topic"
-    );
-
-
-/* ==========================================================
-   CHECK RESEARCH ID
-========================================================== */
-
-if (!researchId) {
-
-    console.error(
-        "No research ID found."
-    );
-
-    window.location.href =
-        "../index.html";
-}
-
-
-/* ==========================================================
-   DOM ELEMENTS
-========================================================== */
-
-const progressStatusText =
-    document.getElementById(
-        "progressStatusText"
-    );
-
-const progressTitle =
-    document.getElementById(
-        "progressTitle"
-    );
-
-const activityTimeline =
-    document.getElementById(
-        "activityTimeline"
-    );
+/*
+    ============================================
+    DOM ELEMENTS
+    ============================================
+*/
 
 const sourceCount =
-    document.getElementById(
-        "sourceCount"
-    );
+    document.getElementById("sourceCount");
 
 const sourceList =
-    document.getElementById(
-        "sourceList"
-    );
+    document.getElementById("sourceList");
+
+const activityTimeline =
+    document.getElementById("activityTimeline");
 
 const analysisStatus =
-    document.getElementById(
-        "analysisStatus"
-    );
+    document.getElementById("analysisStatus");
 
+const currentActivity =
+    document.getElementById("currentActivity");
 
-/* ==========================================================
-   PIPELINE STEPS
-========================================================== */
 
 /*
-    The visible frontend workflow is:
-
-        Search
-        Analyze Sources
-        Write
-        AI Review
-
-    We intentionally do not show "Read" as a separate
-    stage because reading/scraping is part of source
-    analysis in our actual backend workflow.
+    ============================================
+    POLLING CONTROL
+    ============================================
 */
 
-const pipelineSteps =
-    document.querySelectorAll(
-        ".pipeline-step"
-    );
+let pollingInterval = null;
 
+let lastStatus = null;
 
-/* ==========================================================
-   BACKEND STATUS → FRONTEND STEP
-========================================================== */
 
 /*
-    Backend statuses:
-
-        pending
-        searching
-        reading
-        writing
-        reviewing
-        completed
-        failed
-
-    Frontend stages:
-
-        search
-        analyze
-        write
-        review
-
-    "reading" is represented as "analyze" because the
-    Search Agent performs the scraping and preparation
-    of source information during this stage.
+    ============================================
+    PIPELINE STAGES
+    ============================================
 */
 
-function getStepFromStatus(status) {
-
-    switch (status) {
-
-        case "pending":
-            return "search";
-
-
-        case "searching":
-            return "search";
+const pipelineStages = [
+    "search",
+    "analyze",
+    "write",
+    "review"
+];
 
 
-        case "reading":
-            return "analyze";
+/*
+    ============================================
+    STATUS MAPPING
+    ============================================
+*/
 
+function getStageFromStatus(status) {
 
-        case "writing":
-            return "write";
-
-
-        case "reviewing":
-            return "review";
-
-
-        case "completed":
-            return "completed";
-
-
-        case "failed":
-            return "failed";
-
-
-        default:
-            return "search";
+    if (
+        status === "pending" ||
+        status === "searching"
+    ) {
+        return "search";
     }
+
+    if (status === "reading") {
+        return "analyze";
+    }
+
+    if (status === "writing") {
+        return "write";
+    }
+
+    if (status === "reviewing") {
+        return "review";
+    }
+
+    if (status === "completed") {
+        return "completed";
+    }
+
+    if (status === "failed") {
+        return "failed";
+    }
+
+    return "search";
 }
 
 
-/* ==========================================================
-   STATUS TEXT
-========================================================== */
+/*
+    ============================================
+    USER-FRIENDLY STATUS TEXT
+    ============================================
+*/
 
 function getStatusText(status) {
 
-    switch (status) {
-
-        case "pending":
-            return "Preparing research";
-
-
-        case "searching":
-            return "Searching the web";
-
-
-        case "reading":
-            return "Analyzing research sources";
-
-
-        case "writing":
-            return "Writing research report";
-
-
-        case "reviewing":
-            return "AI reviewing research report";
-
-
-        case "completed":
-            return "Research completed";
-
-
-        case "failed":
-            return "Research failed";
-
-
-        default:
-            return "Research in Progress";
+    if (
+        status === "pending"
+    ) {
+        return "Preparing research...";
     }
+
+    if (
+        status === "searching"
+    ) {
+        return "Searching the web...";
+    }
+
+    if (
+        status === "reading"
+    ) {
+        return "Analyzing research sources...";
+    }
+
+    if (
+        status === "writing"
+    ) {
+        return "Writing the research report...";
+    }
+
+    if (
+        status === "reviewing"
+    ) {
+        return "Reviewing the research report...";
+    }
+
+    if (
+        status === "completed"
+    ) {
+        return "Research completed successfully.";
+    }
+
+    if (
+        status === "failed"
+    ) {
+        return "Research failed.";
+    }
+
+    return "Processing research...";
 }
 
 
-/* ==========================================================
-   TITLE TEXT
-========================================================== */
+/*
+    ============================================
+    ESCAPE HTML
+    ============================================
+*/
 
-function getTitleText(status) {
+function escapeHTML(value) {
 
-    switch (status) {
-
-        case "pending":
-            return "Preparing your research";
-
-
-        case "searching":
-            return "Finding relevant sources";
-
-
-        case "reading":
-            return "Analyzing the collected sources";
-
-
-        case "writing":
-            return "Writing your research report";
-
-
-        case "reviewing":
-            return "AI is reviewing your research report";
-
-
-        case "completed":
-            return "Your research is complete";
-
-
-        case "failed":
-            return "Research could not be completed";
-
-
-        default:
-            return "AI Agents are working on your research";
-    }
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
-/* ==========================================================
-   ANALYSIS STATUS TEXT
-========================================================== */
-
-function getAnalysisText(status) {
-
-    switch (status) {
-
-        case "pending":
-            return "Preparing research...";
-
-
-        case "searching":
-            return "Searching the web...";
-
-
-        case "reading":
-            return "Analyzing sources...";
-
-
-        case "writing":
-            return "Writing research report...";
-
-
-        case "reviewing":
-            return "AI reviewing report...";
-
-
-        case "completed":
-            return "Research complete";
-
-
-        case "failed":
-            return "Research failed";
-
-
-        default:
-            return "Processing...";
-    }
-}
-
-
-/* ==========================================================
-   UPDATE PIPELINE
-========================================================== */
+/*
+    ============================================
+    UPDATE PIPELINE
+    ============================================
+*/
 
 function updatePipeline(status) {
 
-    const currentStep =
-        getStepFromStatus(status);
+    const currentStage =
+        getStageFromStatus(status);
 
-
-    /* ------------------------------------------------------
-       FAILED
-    ------------------------------------------------------ */
-
-    if (currentStep === "failed") {
-
-        pipelineSteps.forEach(
-            (step) => {
-
-                step.classList.remove(
-                    "active",
-                    "current",
-                    "completed"
-                );
-
-                const indicator =
-                    step.querySelector(
-                        ".step-indicator"
-                    );
-
-                if (indicator) {
-
-                    indicator.textContent =
-                        "!";
-                }
-            }
+    const stageElements =
+        document.querySelectorAll(
+            "[data-stage]"
         );
 
-        return;
+    let currentIndex =
+        pipelineStages.indexOf(currentStage);
+
+
+    if (currentStage === "completed") {
+        currentIndex =
+            pipelineStages.length;
     }
 
 
-    /* ------------------------------------------------------
-       COMPLETED
-    ------------------------------------------------------ */
+    stageElements.forEach(
+        (element) => {
 
-    if (currentStep === "completed") {
+            const stage =
+                element.dataset.stage;
 
-        pipelineSteps.forEach(
-            (step) => {
-
-                step.classList.remove(
-                    "active",
-                    "current"
-                );
-
-                step.classList.add(
-                    "completed"
-                );
-
-                const indicator =
-                    step.querySelector(
-                        ".step-indicator"
-                    );
-
-                if (indicator) {
-
-                    indicator.textContent =
-                        "✓";
-                }
-            }
-        );
-
-        return;
-    }
+            const stageIndex =
+                pipelineStages.indexOf(stage);
 
 
-    /* ------------------------------------------------------
-       STAGE ORDER
-    ------------------------------------------------------ */
-
-    const stepOrder = [
-        "search",
-        "analyze",
-        "write",
-        "review"
-    ];
-
-
-    const currentIndex =
-        stepOrder.indexOf(
-            currentStep
-        );
-
-
-    /* ------------------------------------------------------
-       UPDATE EACH STAGE
-    ------------------------------------------------------ */
-
-    pipelineSteps.forEach(
-        (step) => {
-
-            const stepName =
-                step.dataset.step;
-
-
-            const stepIndex =
-                stepOrder.indexOf(
-                    stepName
-                );
-
-
-            /*
-                Clear previous state.
-            */
-
-            step.classList.remove(
+            element.classList.remove(
                 "active",
-                "current",
                 "completed"
             );
 
 
-            /*
-                Earlier stages are completed.
-            */
-
             if (
-                stepIndex !== -1 &&
-                stepIndex < currentIndex
+                currentStage === "completed"
             ) {
 
-                step.classList.add(
+                element.classList.add(
                     "completed"
                 );
 
-
-                const indicator =
-                    step.querySelector(
-                        ".step-indicator"
-                    );
-
-
-                if (indicator) {
-
-                    indicator.textContent =
-                        "✓";
-                }
             }
-
-
-            /*
-                Current stage is active.
-            */
-
             else if (
-                stepName === currentStep
+                stageIndex < currentIndex
             ) {
 
-                step.classList.add(
-                    "active"
+                element.classList.add(
+                    "completed"
                 );
 
-                step.classList.add(
-                    "current"
+            }
+            else if (
+                stage === currentStage
+            ) {
+
+                element.classList.add(
+                    "active"
                 );
             }
         }
@@ -481,181 +255,113 @@ function updatePipeline(status) {
 }
 
 
-/* ==========================================================
-   ADD ACTIVITY
-========================================================== */
+/*
+    ============================================
+    UPDATE CURRENT ACTIVITY
+    ============================================
+*/
 
-function addActivity(message) {
+function updateCurrentActivity(status) {
+
+    if (!currentActivity) {
+        return;
+    }
+
+    currentActivity.textContent =
+        getStatusText(status);
+}
+
+
+/*
+    ============================================
+    UPDATE BOTTOM STATUS
+    ============================================
+*/
+
+function updateAnalysisStatus(status) {
+
+    if (!analysisStatus) {
+        return;
+    }
+
+    analysisStatus.textContent =
+        getStatusText(status);
+}
+
+
+/*
+    ============================================
+    ADD ACTIVITY TO TIMELINE
+    ============================================
+*/
+
+function addActivity(status) {
 
     if (!activityTimeline) {
         return;
     }
 
 
-    const activityItem =
-        document.createElement(
-            "div"
-        );
+    const activityText =
+        getStatusText(status);
 
 
-    activityItem.className =
-        "activity-item active";
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "activity-item";
 
 
-    const currentTime =
-        new Date().toLocaleTimeString(
-            [],
-            {
-                hour: "2-digit",
-                minute: "2-digit"
-            }
-        );
+    item.innerHTML = `
+        <div class="activity-dot"></div>
 
-
-    /*
-        Escape activity text before inserting it
-        into the page.
-    */
-
-    const safeMessage =
-        String(message)
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-
-
-    activityItem.innerHTML = `
-        <time>${currentTime}</time>
-
-        <span class="activity-dot"></span>
-
-        <p>${safeMessage}</p>
+        <div class="activity-content">
+            ${escapeHTML(activityText)}
+        </div>
     `;
 
 
-    /*
-        Previous activity entries are no longer active.
-    */
-
-    const previousItems =
-        activityTimeline.querySelectorAll(
-            ".activity-item"
-        );
-
-
-    previousItems.forEach(
-        (item) => {
-
-            item.classList.remove(
-                "active"
-            );
-        }
-    );
-
-
-    activityTimeline.appendChild(
-        activityItem
-    );
-
-
-    /*
-        Keep the newest activity visible.
-    */
-
-    activityTimeline.scrollTop =
-        activityTimeline.scrollHeight;
+    activityTimeline.appendChild(item);
 }
 
 
-/* ==========================================================
-   UPDATE ACTIVITY
-========================================================== */
+/*
+    ============================================
+    UPDATE SOURCE LIST
+    ============================================
+*/
 
-let lastStatus = null;
+function updateSources(sources) {
 
-
-function updateActivity(status) {
-
-    /*
-        Polling runs every 2 seconds.
-
-        Only create a new activity item when the
-        backend status actually changes.
-    */
-
-    if (status === lastStatus) {
+    if (!sourceList || !sourceCount) {
         return;
     }
 
 
-    lastStatus = status;
+    if (!Array.isArray(sources)) {
 
+        sourceCount.textContent = "0";
 
-    addActivity(
-        getStatusText(status)
-    );
-}
+        sourceList.innerHTML =
+            "<p>No sources available yet.</p>";
 
-
-/* ==========================================================
-   RENDER SOURCES
-========================================================== */
-
-function updateSources(sources = []) {
-
-    if (!sourceCount) {
         return;
     }
 
 
-    /*
-        The backend now returns saved ResearchSource
-        objects through the "sources" field.
-    */
-
-    const totalSources =
+    sourceCount.textContent =
         sources.length;
 
 
-    /*
-        The source counter shows how many sources have
-        been collected.
+    if (sources.length === 0) {
 
-        Example:
-
-            5 / 5
-    */
-
-    sourceCount.textContent =
-        `${totalSources} / ${totalSources}`;
-
-
-    if (!sourceList) {
-        return;
-    }
-
-
-    /*
-        No sources yet.
-    */
-
-    if (!sources.length) {
-
-        sourceList.innerHTML = `
-            <p class="empty-state">
-                Searching for reliable sources...
-            </p>
-        `;
+        sourceList.innerHTML =
+            "<p>No sources available yet.</p>";
 
         return;
     }
 
-
-    /*
-        Display the actual sources returned by Django.
-    */
 
     sourceList.innerHTML =
         sources
@@ -663,46 +369,23 @@ function updateSources(sources = []) {
                 (source) => {
 
                     const title =
-                        String(
-                            source.title ||
-                            "Research Source"
-                        )
-                        .replaceAll("&", "&amp;")
-                        .replaceAll("<", "&lt;")
-                        .replaceAll(">", "&gt;")
-                        .replaceAll('"', "&quot;")
-                        .replaceAll("'", "&#039;");
-
+                        source.title ||
+                        "Research Source";
 
                     const url =
-                        String(
-                            source.url ||
-                            ""
-                        )
-                        .replaceAll("&", "&amp;")
-                        .replaceAll("<", "&lt;")
-                        .replaceAll(">", "&gt;")
-                        .replaceAll('"', "&quot;")
-                        .replaceAll("'", "&#039;");
+                        source.url ||
+                        "#";
 
 
                     return `
                         <div class="source-item">
 
-                            <span class="source-status">
-                                ✓
-                            </span>
+                            <div class="source-title">
+                                ${escapeHTML(title)}
+                            </div>
 
-                            <div class="source-information">
-
-                                <strong>
-                                    ${title}
-                                </strong>
-
-                                <span>
-                                    ${url}
-                                </span>
-
+                            <div class="source-url">
+                                ${escapeHTML(url)}
                             </div>
 
                         </div>
@@ -713,109 +396,58 @@ function updateSources(sources = []) {
 }
 
 
-/* ==========================================================
-   UPDATE PAGE
-========================================================== */
+/*
+    ============================================
+    STOP POLLING
+    ============================================
+*/
 
-function updatePage(data) {
+function stopPolling() {
 
-    const status =
-        data.status;
+    if (pollingInterval) {
 
+        clearInterval(
+            pollingInterval
+        );
 
-    /*
-        Update status label.
-    */
-
-    if (progressStatusText) {
-
-        progressStatusText.textContent =
-            getStatusText(status);
+        pollingInterval = null;
     }
-
-
-    /*
-        Update main heading.
-    */
-
-    if (progressTitle) {
-
-        progressTitle.textContent =
-            getTitleText(status);
-    }
-
-
-    /*
-        Update bottom activity message.
-    */
-
-    if (analysisStatus) {
-
-        analysisStatus.textContent =
-            getAnalysisText(status);
-    }
-
-
-    /*
-        Update pipeline.
-    */
-
-    updatePipeline(
-        status
-    );
-
-
-    /*
-        Update Current Activity.
-    */
-
-    updateActivity(
-        status
-    );
-
-
-    /*
-        Update actual sources returned
-        by the Django API.
-    */
-
-    updateSources(
-        data.sources || []
-    );
 }
 
 
-/* ==========================================================
-   FETCH RESEARCH STATUS
-========================================================== */
+/*
+    ============================================
+    FETCH RESEARCH STATUS
+    ============================================
+*/
 
 async function fetchResearchStatus() {
+
+    if (!researchId) {
+
+        console.error(
+            "Research ID not found."
+        );
+
+        return;
+    }
+
 
     try {
 
         const response =
             await fetch(
-                `${API_BASE_URL}/api/research/${encodeURIComponent(
-                    researchId
-                )}/`
+                `${API_BASE_URL}/api/research/${researchId}/`
             );
 
-
-        /*
-            Check HTTP response.
-        */
 
         if (!response.ok) {
 
             throw new Error(
-                `Status request failed: ${response.status}`
+                `HTTP error: ${response.status}`
             );
         }
 
-
-        /*
-            Convert API response to JSON.
-        */
 
         const data =
             await response.json();
@@ -823,31 +455,69 @@ async function fetchResearchStatus() {
 
         console.log(
             "Research status:",
-            data.status
-        );
-
-
-        /*
-            Also log source count so we can
-            debug the Progress Page easily.
-        */
-
-        console.log(
-            "Sources:",
-            data.sources?.length || 0
-        );
-
-
-        /*
-            Update the page.
-        */
-
-        updatePage(
             data
         );
 
 
         /*
+            Update pipeline.
+        */
+
+        updatePipeline(
+            data.status
+        );
+
+
+        /*
+            Update current activity.
+        */
+
+        updateCurrentActivity(
+            data.status
+        );
+
+
+        /*
+            Update bottom status.
+        */
+
+        updateAnalysisStatus(
+            data.status
+        );
+
+
+        /*
+            Update sources.
+        */
+
+        updateSources(
+            data.sources
+        );
+
+
+        /*
+            Add activity only when
+            the status changes.
+        */
+
+        if (
+            data.status !== lastStatus
+        ) {
+
+            addActivity(
+                data.status
+            );
+
+            lastStatus =
+                data.status;
+        }
+
+
+        /*
+            ========================================
+            RESEARCH COMPLETION
+            ========================================
+
             Stop polling when the workflow ends.
         */
 
@@ -860,13 +530,46 @@ async function fetchResearchStatus() {
 
 
             /*
-                Give the user a short moment to see
-                the completed state.
+                Research completed successfully.
+
+                Send a custom Google Analytics event
+                so we can measure how many research
+                requests actually finish successfully.
             */
 
             if (
                 data.status === "completed"
             ) {
+
+                // Track completed research.
+                if (
+                    typeof gtag === "function"
+                ) {
+
+                    gtag(
+                        "event",
+                        "research_completed"
+                    );
+
+
+                    console.log(
+                        "Google Analytics event sent: research_completed"
+                    );
+
+                }
+                else {
+
+                    console.warn(
+                        "Google Analytics gtag function is not available."
+                    );
+                }
+
+
+                /*
+                    Give the user a short moment
+                    to see the completed state
+                    before opening the final report.
+                */
 
                 setTimeout(
                     () => {
@@ -883,36 +586,26 @@ async function fetchResearchStatus() {
         }
 
     }
-
     catch (error) {
 
         console.error(
-            "PROGRESS ERROR:",
+            "STATUS FETCH ERROR:",
             error
         );
     }
 }
 
 
-/* ==========================================================
-   POLLING
-========================================================== */
-
-let pollingInterval = null;
-
+/*
+    ============================================
+    START POLLING
+    ============================================
+*/
 
 function startPolling() {
 
-    /*
-        Fetch immediately.
-    */
-
     fetchResearchStatus();
 
-
-    /*
-        Continue checking every 2 seconds.
-    */
 
     pollingInterval =
         setInterval(
@@ -922,59 +615,38 @@ function startPolling() {
 }
 
 
-/* ==========================================================
-   STOP POLLING
-========================================================== */
+/*
+    ============================================
+    PAGE INITIALIZATION
+    ============================================
+*/
 
-function stopPolling() {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    if (pollingInterval) {
+        if (!researchId) {
 
-        clearInterval(
-            pollingInterval
-        );
+            console.error(
+                "No research ID found."
+            );
 
-        pollingInterval = null;
-    }
-}
+            if (analysisStatus) {
 
+                analysisStatus.textContent =
+                    "Research ID not found.";
+            }
 
-/* ==========================================================
-   INITIALIZE PAGE
-========================================================== */
-
-if (researchId) {
-
-    console.log(
-        "Monitoring research:",
-        researchId
-    );
+            return;
+        }
 
 
-    /*
-        Display the research topic if the HTML
-        contains an element for it.
-    */
-
-    const topicElement =
-        document.getElementById(
-            "researchTopicDisplay"
+        console.log(
+            "Starting research progress...",
+            researchId
         );
 
 
-    if (
-        topicElement &&
-        researchTopic
-    ) {
-
-        topicElement.textContent =
-            researchTopic;
+        startPolling();
     }
-
-
-    /*
-        Start monitoring the backend.
-    */
-
-    startPolling();
-}
+);
