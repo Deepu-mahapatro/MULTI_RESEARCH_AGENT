@@ -11,6 +11,7 @@
 # 3. Starting the AI research workflow in the background.
 # 4. Updating the research status.
 # 5. Returning the Research ID immediately.
+# 6. Generating and downloading research reports as PDF.
 #
 # IMPORTANT:
 #
@@ -61,9 +62,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from django.http import FileResponse
+
 from .models import Research
 from .serializers import ResearchSerializer
 from .services import process_research
+from .pdf_service import generate_research_pdf
 
 
 # ---------------------------------------------------------
@@ -472,3 +476,86 @@ def get_research(request, id):
         return Response(
             status=status.HTTP_204_NO_CONTENT
         )
+
+
+# ---------------------------------------------------------
+# DOWNLOAD RESEARCH PDF
+# ---------------------------------------------------------
+
+@api_view(["GET"])
+def download_research_pdf(request, id):
+    """
+    Generate and download the completed research report
+    as a PDF file.
+    """
+
+    # -----------------------------------------------------
+    # FIND RESEARCH
+    # -----------------------------------------------------
+
+    try:
+
+        research = Research.objects.get(
+            id=id
+        )
+
+    except Research.DoesNotExist:
+
+        return Response(
+            {
+                "error": "Research not found."
+            },
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+
+    # -----------------------------------------------------
+    # CHECK RESEARCH STATUS
+    # -----------------------------------------------------
+    # PDF can only be generated after the research
+    # workflow has completed.
+    # -----------------------------------------------------
+
+    if research.status != "completed":
+
+        return Response(
+            {
+                "error": "Research report is not completed yet."
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+    # -----------------------------------------------------
+    # CHECK REPORT CONTENT
+    # -----------------------------------------------------
+
+    if not research.final_report.strip():
+
+        return Response(
+            {
+                "error": "Research report is empty."
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+    # -----------------------------------------------------
+    # GENERATE PDF
+    # -----------------------------------------------------
+
+    pdf_buffer = generate_research_pdf(
+        research
+    )
+
+
+    # -----------------------------------------------------
+    # RETURN PDF TO BROWSER
+    # -----------------------------------------------------
+
+    return FileResponse(
+        pdf_buffer,
+        as_attachment=True,
+        filename="research-report.pdf",
+        content_type="application/pdf"
+    )
