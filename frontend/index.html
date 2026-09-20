@@ -3,8 +3,45 @@
 
 <head>
 
+    <!--
+        Google Analytics 4
+        Tracks visitors and website activity.
+    -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-Y0344419RE"
+    ></script>
+
+    <script>
+        /*
+            Create the Google Analytics data layer.
+            Google Analytics uses this to store tracking events.
+        */
+        window.dataLayer = window.dataLayer || [];
+
+        /*
+            Google Analytics tracking function.
+        */
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        /*
+            Initialize Google Analytics.
+        */
+        gtag("js", new Date());
+
+        /*
+            Configure Google Analytics
+            using the ResearchAI Measurement ID.
+        */
+        gtag("config", "G-Y0344419RE");
+    </script>
+
+
     <!-- Character encoding -->
     <meta charset="UTF-8">
+
 
     <!-- Responsive design -->
     <meta
@@ -12,18 +49,21 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+
     <!-- Browser title -->
     <title>ResearchAI</title>
 
-    <!-- Page description -->
+
+    <!-- Page description for search engines -->
     <meta
         name="description"
         content="ResearchAI — Multi-Agent AI Research Assistant"
     >
 
+
     <!--
         Redirect the root frontend page
-        to the final Research page.
+        to the main ResearchAI research page.
     -->
     <meta
         http-equiv="refresh"
@@ -44,12 +84,12 @@
         Opening ResearchAI...
     </p>
 
+
     <p>
         <a href="pages/research.html">
             Click here to open ResearchAI
         </a>
     </p>
-
 
 </body>
 

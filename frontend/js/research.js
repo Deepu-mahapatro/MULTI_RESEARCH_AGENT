@@ -244,7 +244,18 @@ if (researchForm) {
 
                 // Track when a user successfully starts a research request.
                 if (typeof gtag === "function") {
-                   gtag("event", "research_started");
+
+                    gtag("event", "research_started");
+
+                    console.log(
+                        "Google Analytics event sent: research_started"
+                    );
+
+                } else {
+
+                    console.warn(
+                        "Google Analytics gtag function is not available."
+                    );
                 }
 
 

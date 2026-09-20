@@ -3,17 +3,70 @@
 
 <head>
 
+    <!-- ==========================================
+         GOOGLE ANALYTICS 4
+    =========================================== -->
+
+    <!--
+        Loads the Google Analytics library.
+        The async attribute allows it to load
+        without blocking the page.
+    -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-Y0344419RE"
+    ></script>
+
+    <script>
+        // Create the Google Analytics data layer.
+        window.dataLayer = window.dataLayer || [];
+
+        // Google Analytics tracking function.
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        // Initialize Google Analytics.
+        gtag("js", new Date());
+
+        // Configure Google Analytics
+        // using the ResearchAI Measurement ID.
+        gtag("config", "G-Y0344419RE");
+    </script>
+
+
+    <!-- ==========================================
+         PAGE META INFORMATION
+    =========================================== -->
+
+    <!-- Character encoding -->
     <meta charset="UTF-8">
 
+    <!-- Responsive design -->
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
+    <!-- Browser title -->
     <title>Research in Progress — ResearchAI</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/progress.css">
+
+    <!-- ==========================================
+         CSS
+    =========================================== -->
+
+    <!-- Global styles -->
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <!-- Progress page styles -->
+    <link
+        rel="stylesheet"
+        href="../css/progress.css"
+    >
 
 </head>
 
@@ -27,6 +80,7 @@
 
     <header class="site-header progress-header">
 
+        <!-- ResearchAI brand -->
         <a
             href="../index.html"
             class="brand"
@@ -35,8 +89,10 @@
         </a>
 
 
+        <!-- Header actions -->
         <div class="header-actions">
 
+            <!-- Theme toggle -->
             <button
                 type="button"
                 class="theme-toggle"
@@ -66,9 +122,9 @@
     <main class="research-progress">
 
 
-        <!-- ==========================================
+        <!-- ======================================
              CURRENT STATUS
-        =========================================== -->
+        ======================================= -->
 
         <div class="research-status">
 
@@ -82,9 +138,9 @@
 
 
 
-        <!-- ==========================================
+        <!-- ======================================
              HEADING
-        =========================================== -->
+        ======================================= -->
 
         <section class="progress-introduction">
 
@@ -101,9 +157,9 @@
 
 
 
-        <!-- ==========================================
+        <!-- ======================================
              RESEARCH PIPELINE
-        =========================================== -->
+        ======================================= -->
 
         <section
             class="research-pipeline"
@@ -111,9 +167,9 @@
         >
 
 
-            <!-- ======================================
+            <!-- ==================================
                  STEP 1 — SEARCH
-            ======================================= -->
+            =================================== -->
 
             <article
                 class="pipeline-step completed"
@@ -137,9 +193,9 @@
 
 
 
-            <!-- ======================================
+            <!-- ==================================
                  STEP 2 — ANALYZE SOURCES
-            ======================================= -->
+            =================================== -->
 
             <article
                 class="pipeline-step"
@@ -163,9 +219,9 @@
 
 
 
-            <!-- ======================================
+            <!-- ==================================
                  STEP 3 — WRITE
-            ======================================= -->
+            =================================== -->
 
             <article
                 class="pipeline-step"
@@ -189,9 +245,9 @@
 
 
 
-            <!-- ======================================
+            <!-- ==================================
                  STEP 4 — AI REVIEW
-            ======================================= -->
+            =================================== -->
 
             <article
                 class="pipeline-step"
@@ -249,8 +305,8 @@
 
 
                 <!--
-                    The JavaScript will add activity
-                    updates here as the research progresses.
+                    JavaScript adds activity updates
+                    here as the research progresses.
                 -->
 
                 <div
@@ -317,7 +373,7 @@
 
 
                 <!--
-                    Actual sources returned by Django
+                    Sources returned by Django
                     will be inserted here.
                 -->
 
@@ -374,8 +430,10 @@
          JAVASCRIPT
     =========================================== -->
 
+    <!-- Global JavaScript -->
     <script src="../js/app.js"></script>
 
+    <!-- Progress page JavaScript -->
     <script src="../js/progress.js"></script>
 
 
