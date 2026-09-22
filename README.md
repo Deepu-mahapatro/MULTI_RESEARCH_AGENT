@@ -126,6 +126,7 @@ Django REST API
            │
            ▼
       📄 Final Report
+
 ⚡ Background Processing
 
 Research requests are processed in the background so that the API can immediately return a research ID while the AI workflow continues.
@@ -153,6 +154,7 @@ If an error occurs:
 Any Stage
    ↓
 failed
+
 📄 PDF Report Generation
 
 Completed research reports can be converted into downloadable PDF documents using ReportLab.
@@ -167,6 +169,7 @@ Title
 URL
 Search snippet
 Creation timestamp
+
 🧠 AI Agents
 1. 🔍 Search Agent
 
@@ -340,31 +343,39 @@ The complete research lifecycle is:
 1️⃣3️⃣ User can view and download the report
 
 🛠️ Tech Stack
+
 🎨 Frontend
 HTML5
 CSS3
 JavaScript
+
 ⚙️ Backend
 Python 3.12
 Django
 Django REST Framework
+
 🤖 AI / LLM
 LangChain
 Groq
 Qwen
-Mistral integration support
+
 🔎 Search
 Tavily
+
 🌐 Web Scraping
 Requests
 BeautifulSoup
+
 🗄️ Database
 PostgreSQL
 Supabase
+
 📄 PDF Generation
 ReportLab
+
 🚀 Deployment
 Render
+
 📁 Project Structure
 MULTI_RESEARCH_AGENT/
 │
