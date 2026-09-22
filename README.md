@@ -20,7 +20,7 @@
 
 <p align="center">
 
-  <strong>🔍 Search • 📖 Analyze • ✍️ Write • 🧐 Review • 📝 Summarize</strong>
+  <strong>     🔍 Search • 📖 Analyze • ✍️ Write • 🧐 Review • 📝 Summarize</strong>
 
 </p>
 
@@ -540,8 +540,6 @@ Response
 The API returns a research ID and the initial research information.
 
 The research workflow then continues in the background.
-
-📥 PDF Report
 
 🌐 Live Demo
 🚀 ResearchAI
