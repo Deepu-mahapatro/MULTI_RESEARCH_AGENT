@@ -179,6 +179,7 @@ Extract source titles
 Prepare source information
 Scrape selected sources
 Process multiple URLs concurrently
+
 2. ✍️ Writer Agent
 
 The Writer Agent generates the main research report using the collected research information.
@@ -203,6 +204,7 @@ Use the provided research information
 Avoid unsupported claims
 Maintain a professional structure
 Produce a clear research report
+
 3. 🧐 Critic Agent
 
 The Critic Agent reviews the generated report against the collected research information.
@@ -235,6 +237,7 @@ Uses only information from the final report
 Focuses on important findings
 Avoids introducing new information
 Uses clear professional language
+
 🏗️ System Architecture
                          ┌─────────────────────┐
                          │        USER         │
@@ -305,6 +308,7 @@ Uses clear professional language
                           ┌─────────┴─────────┐
                           ▼                   ▼
                     📄 Report Page       📥 PDF Export
+
 🔄 Research Workflow
 
 The complete research lifecycle is:
@@ -334,6 +338,7 @@ The complete research lifecycle is:
 1️⃣2️⃣ Final report is stored
             ↓
 1️⃣3️⃣ User can view and download the report
+
 🛠️ Tech Stack
 🎨 Frontend
 HTML5
@@ -428,13 +433,16 @@ MULTI_RESEARCH_AGENT/
         ├── progress.png
         ├── report.png
         └── pdf.png
+
 ⚙️ Installation & Setup
+
 1️⃣ Clone the Repository
 git clone https://github.com/Deepu-mahapatro/MULTI_RESEARCH_AGENT.git
 
 Move into the project:
 
 cd MULTI_RESEARCH_AGENT
+
 2️⃣ Backend Setup
 
 Move into the backend directory:
@@ -451,6 +459,7 @@ Activate the virtual environment:
 venv\Scripts\activate
 Install Dependencies
 pip install -r requirements.txt
+
 3️⃣ Environment Variables
 
 Create a .env file inside the backend directory:
@@ -481,6 +490,7 @@ Run Django migrations:
 
 python manage.py makemigrations
 python manage.py migrate
+
 5️⃣ Run the Backend
 
 Start the Django development server:
@@ -490,6 +500,7 @@ python manage.py runserver
 The backend will run at:
 
 http://127.0.0.1:8000
+
 6️⃣ Run the Frontend
 
 Open the frontend directory using a local development server such as VS Code Live Server.
@@ -505,6 +516,7 @@ GET	/api/research/<id>/	Retrieve a specific research
 PUT	/api/research/<id>/	Update a research
 DELETE	/api/research/<id>/	Delete a research
 GET	/api/research/<id>/pdf/	Download completed report as PDF
+
 📤 Create Research
 Request
 POST /api/research/
@@ -518,16 +530,6 @@ The API returns a research ID and the initial research information.
 
 The research workflow then continues in the background.
 
-📸 Screenshots
-
-Screenshots can be added to the docs/screenshots/ directory.
-
-🔍 Research Interface
-
-⚡ Research Progress
-
-📄 Generated Research Report
-
 📥 PDF Report
 
 🌐 Live Demo
@@ -537,8 +539,8 @@ Try the deployed application:
 
 👉 Open ResearchAI
 https://frontend-research-agent.onrender.com
-🚀 Deployment
 
+🚀 Deployment
 The application is deployed using the following architecture:
 
 ┌───────────────────────────────┐
@@ -556,6 +558,7 @@ The application is deployed using the following architecture:
         ▼       ▼        ▼
      Tavily    Groq    Supabase
      Search     LLM    PostgreSQL
+
 Production Services
 Component	Platform
 Frontend	Render Static Site
@@ -564,6 +567,7 @@ Database	Supabase PostgreSQL
 Web Search	Tavily
 LLM	Groq
 PDF Generation	ReportLab
+
 🔐 Security Notes
 
 Sensitive configuration values are stored using environment variables.
@@ -587,6 +591,7 @@ Recommended GitHub protection
 .env.example      ✅ Safe template
 venv/             ❌ Never commit
 __pycache__/      ❌ Never commit
+
 🔮 Future Improvements
 
 Possible future improvements include:
